@@ -15,7 +15,10 @@ export function RotatingText({ items }: { items: string[] }) {
   }, [items.length]);
 
   return (
-    <span className="relative inline-flex h-[1.3em] items-center overflow-hidden align-bottom">
+    // h-[2.6em] (not 1.3em) leaves room for the longest phrase to wrap to
+    // two lines on narrow viewports — a fixed single-line height clips
+    // wrapped text and centers it into the line above, causing overlap.
+    <span className="relative inline-flex h-[2.6em] items-center overflow-hidden align-bottom">
       <AnimatePresence mode="wait">
         <motion.span
           key={items[index]}
