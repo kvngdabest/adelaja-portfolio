@@ -21,7 +21,7 @@ Next.js 16 (App Router), Supabase (Postgres + Auth + Storage), and shadcn/ui.
 | Blog content | MDX (rendered server-side via `next-mdx-remote/rsc`) |
 | Deployment | Vercel |
 
-**Fonts:** Space Grotesk (headings) + Inter (body) + JetBrains Mono
+**Fonts:** Orbitron (headings) + Inter (body) + JetBrains Mono
 (code/labels/stats), loaded via `next/font`.
 
 **Palette** (exact tokens, `src/app/globals.css`):

@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Inter, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Inter, Orbitron, JetBrains_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import "./globals.css";
@@ -10,9 +10,10 @@ const inter = Inter({
   display: "swap",
 });
 
-const spaceGrotesk = Space_Grotesk({
-  variable: "--font-space-grotesk",
+const orbitron = Orbitron({
+  variable: "--font-orbitron",
   subsets: ["latin"],
+  weight: ["500", "600", "700", "800", "900"],
   display: "swap",
 });
 
@@ -48,7 +49,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`dark ${inter.variable} ${orbitron.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
         <TooltipProvider>
