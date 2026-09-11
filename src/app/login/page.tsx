@@ -1,0 +1,24 @@
+import type { Metadata } from "next";
+import { LoginForm } from "@/components/dashboard/login-form";
+
+export const metadata: Metadata = {
+  title: "Sign in",
+  robots: { index: false, follow: false },
+};
+
+export default function LoginPage() {
+  return (
+    <main className="relative flex min-h-screen items-center justify-center bg-background px-6">
+      <div aria-hidden className="bg-grid bg-mesh pointer-events-none absolute inset-0" />
+      <div className="glass glow-cerulean relative z-10 w-full max-w-sm rounded-2xl p-8">
+        <div className="mb-8 flex flex-col gap-1 text-center">
+          <span className="font-heading text-lg font-semibold">
+            Adelaja<span className="text-cerulean">.</span>
+          </span>
+          <p className="text-sm text-muted-foreground">Sign in to manage the site</p>
+        </div>
+        <LoginForm />
+      </div>
+    </main>
+  );
+}
