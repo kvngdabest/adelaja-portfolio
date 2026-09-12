@@ -15,6 +15,10 @@ export async function login(input: LoginInput): Promise<LoginState> {
   }
 
   const supabase = await createClient();
+  if (!supabase) {
+    return { error: "The site isn't connected to a database yet. Please try again later." };
+  }
+
   const { error } = await supabase.auth.signInWithPassword(parsed.data);
 
   if (error) {
@@ -26,6 +30,9 @@ export async function login(input: LoginInput): Promise<LoginState> {
 
 export async function logout() {
   const supabase = await createClient();
+  if (!supabase) {
+    redirect("/login");
+  }
   await supabase.auth.signOut();
   redirect("/login");
 }

@@ -19,7 +19,7 @@ export default async function AboutPage() {
     <section className="py-24">
       <Container className="flex flex-col gap-16">
         <Reveal immediate>
-          <SectionHeading eyebrow="About" title="The person behind the automations" />
+          <SectionHeading as="h1" eyebrow="About" title="The person behind the automations" />
         </Reveal>
 
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">

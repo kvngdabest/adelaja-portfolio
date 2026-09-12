@@ -20,6 +20,7 @@ export default async function TestimonialsPage() {
       <Container className="flex flex-col gap-12">
         <Reveal immediate>
           <SectionHeading
+            as="h1"
             eyebrow="Kind words"
             title="Testimonials"
             description="Feedback from clients and collaborators I've worked with."

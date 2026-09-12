@@ -6,12 +6,17 @@ export function SectionHeading({
   description,
   align = "left",
   className,
+  as: Heading = "h2",
 }: {
   eyebrow?: string;
   title: string;
   description?: string;
   align?: "left" | "center";
   className?: string;
+  /** Use "h1" when this is a page's primary heading (there should be
+   * exactly one <h1> per page) — defaults to "h2" for section headings
+   * on pages that already have their own <h1> (e.g. the homepage hero). */
+  as?: "h1" | "h2";
 }) {
   return (
     <div
@@ -26,9 +31,9 @@ export function SectionHeading({
           {eyebrow}
         </span>
       ) : null}
-      <h2 className="text-3xl font-semibold text-balance sm:text-4xl">
+      <Heading className="text-3xl font-semibold text-balance sm:text-4xl">
         {title}
-      </h2>
+      </Heading>
       {description ? (
         <p className="max-w-2xl text-base text-muted-foreground text-pretty">
           {description}

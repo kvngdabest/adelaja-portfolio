@@ -55,7 +55,7 @@ export function ContactForm() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="glass flex flex-col gap-5 rounded-2xl p-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="glass flex flex-col gap-5 rounded-2xl p-8">
         <div className="grid gap-5 sm:grid-cols-2">
           <FormField
             control={form.control}

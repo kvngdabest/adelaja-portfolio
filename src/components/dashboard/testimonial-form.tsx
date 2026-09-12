@@ -57,7 +57,7 @@ export function TestimonialForm({ testimonial }: { testimonial?: Testimonial }) 
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col gap-8">
+      <form onSubmit={form.handleSubmit(onSubmit)} noValidate className="flex flex-col gap-8">
         <div className="glass flex flex-col gap-5 rounded-2xl p-6">
           <div className="grid gap-5 sm:grid-cols-2">
             <FormField

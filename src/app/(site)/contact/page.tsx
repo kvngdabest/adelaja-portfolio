@@ -21,6 +21,7 @@ export default async function ContactPage() {
       <Container className="grid gap-16 lg:grid-cols-[1fr_1.2fr]">
         <Reveal immediate className="flex flex-col gap-8">
           <SectionHeading
+            as="h1"
             eyebrow="Contact"
             title="Let's build something"
             description="Have a workflow to automate, an AI agent to design, or a product to build? Tell me about it."

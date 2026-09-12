@@ -23,6 +23,7 @@ export default async function BlogPage() {
       <Container className="flex flex-col gap-12">
         <Reveal immediate>
           <SectionHeading
+            as="h1"
             eyebrow="Writing"
             title="Blog"
             description="Notes on automation, AI agents, and building full-stack products."

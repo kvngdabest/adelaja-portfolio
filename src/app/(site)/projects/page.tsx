@@ -20,6 +20,7 @@ export default async function ProjectsPage() {
       <Container className="flex flex-col gap-12">
         <Reveal immediate>
           <SectionHeading
+            as="h1"
             eyebrow="Work"
             title="Projects"
             description="A selection of automation systems, AI agent pipelines, and full-stack products I've shipped."

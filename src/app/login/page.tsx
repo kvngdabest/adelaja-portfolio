@@ -12,10 +12,12 @@ export default function LoginPage() {
       <div aria-hidden className="bg-grid bg-mesh pointer-events-none absolute inset-0" />
       <div className="glass glow-cerulean relative z-10 w-full max-w-sm rounded-2xl p-8">
         <div className="mb-8 flex flex-col gap-1 text-center">
-          <span className="font-heading text-lg font-semibold">
+          <span className="font-heading text-lg font-semibold" aria-hidden="true">
             Adelaja<span className="text-cerulean">.</span>
           </span>
-          <p className="text-sm text-muted-foreground">Sign in to manage the site</p>
+          <h1 className="font-sans text-sm font-normal text-muted-foreground">
+            Sign in to manage the site
+          </h1>
         </div>
         <LoginForm />
       </div>

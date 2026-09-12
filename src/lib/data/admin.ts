@@ -1,7 +1,19 @@
 import { createClient } from "@/lib/supabase/server";
 
-export async function getAllProjects() {
+// Every caller here sits behind dashboard/layout.tsx's auth redirect, which
+// already bails out to /login when Supabase isn't configured — so reaching
+// this point with no client would mean that gate was bypassed. Fail loudly
+// rather than silently return empty data that could mask the real problem.
+async function getClient() {
   const supabase = await createClient();
+  if (!supabase) {
+    throw new Error("Supabase is not configured — this should be unreachable behind the dashboard auth gate.");
+  }
+  return supabase;
+}
+
+export async function getAllProjects() {
+  const supabase = await getClient();
   const { data } = await supabase
     .from("projects")
     .select("*")
@@ -10,13 +22,13 @@ export async function getAllProjects() {
 }
 
 export async function getProjectById(id: string) {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase.from("projects").select("*").eq("id", id).maybeSingle();
   return data;
 }
 
 export async function getAllPosts() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase
     .from("blog_posts")
     .select("*")
@@ -25,13 +37,13 @@ export async function getAllPosts() {
 }
 
 export async function getPostById(id: string) {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase.from("blog_posts").select("*").eq("id", id).maybeSingle();
   return data;
 }
 
 export async function getAllTestimonials() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase
     .from("testimonials")
     .select("*")
@@ -40,13 +52,13 @@ export async function getAllTestimonials() {
 }
 
 export async function getTestimonialById(id: string) {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase.from("testimonials").select("*").eq("id", id).maybeSingle();
   return data;
 }
 
 export async function getAllSkills() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase
     .from("skills")
     .select("*")
@@ -56,13 +68,13 @@ export async function getAllSkills() {
 }
 
 export async function getSkillById(id: string) {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase.from("skills").select("*").eq("id", id).maybeSingle();
   return data;
 }
 
 export async function getAllResumeEntries() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase
     .from("resume_entries")
     .select("*")
@@ -72,13 +84,13 @@ export async function getAllResumeEntries() {
 }
 
 export async function getResumeEntryById(id: string) {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase.from("resume_entries").select("*").eq("id", id).maybeSingle();
   return data;
 }
 
 export async function getAllMessages() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase
     .from("messages")
     .select("*")
@@ -87,7 +99,7 @@ export async function getAllMessages() {
 }
 
 export async function getUnreadMessageCount() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { count } = await supabase
     .from("messages")
     .select("*", { count: "exact", head: true })
@@ -97,13 +109,13 @@ export async function getUnreadMessageCount() {
 }
 
 export async function getSettings() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const { data } = await supabase.from("admin_settings").select("*").limit(1).maybeSingle();
   return data;
 }
 
 export async function getDashboardStats() {
-  const supabase = await createClient();
+  const supabase = await getClient();
   const [projects, posts, unread] = await Promise.all([
     supabase.from("projects").select("*", { count: "exact", head: true }).eq("status", "published"),
     supabase.from("blog_posts").select("*", { count: "exact", head: true }).eq("status", "published"),

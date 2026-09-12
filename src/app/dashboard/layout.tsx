@@ -8,15 +8,20 @@ export const metadata = {
   robots: { index: false, follow: false },
 };
 
+// Every dashboard page shows live, per-admin data behind auth — never
+// prerender it. This also fixes a subtle build-time issue: createClient()
+// now checks env vars before calling cookies(), so when Supabase isn't
+// configured, Next's implicit dynamic-API detection never fires and it
+// tries (and fails) to statically prerender these routes at build time.
+export const dynamic = "force-dynamic";
+
 export default async function DashboardLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   const supabase = await createClient();
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
+  const user = supabase ? (await supabase.auth.getUser()).data.user : null;
 
   // Defense in depth — proxy.ts already redirects unauthenticated requests,
   // but a Server Component should never trust that alone.

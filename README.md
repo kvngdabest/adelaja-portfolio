@@ -162,7 +162,8 @@ Example: adding a `location` field to projects.
    project settings (Production + Preview). Keep
    `SUPABASE_SERVICE_ROLE_KEY` server-only — never prefix it with
    `NEXT_PUBLIC_`.
-4. Deploy. Vercel builds with `next build` (Turbopack) automatically.
+4. Deploy. Vercel runs `npm run build` automatically, which builds with
+   Webpack rather than Turbopack (see "Why `--webpack`" below).
 5. Add a custom domain under Project Settings → Domains once you have one;
    until then the `*.vercel.app` URL works fine — just make sure
    `NEXT_PUBLIC_SITE_URL` matches whichever URL is live, since it feeds
@@ -189,17 +190,67 @@ src/
 supabase/
   migrations/          # versioned SQL migrations
   seed.sql             # placeholder content
+e2e/                   # Playwright end-to-end tests
 ```
+
+## Why `--webpack`
+
+`npm run build` runs `next build --webpack` instead of the new Turbopack
+default. Turbopack's production build in Next.js 16.3.5 was found to bundle
+dev-only chunks (literally a `hmr-client` file) into the production output,
+tanking real performance — confirmed by building the identical code with
+Webpack instead, which doesn't have the problem. Worth re-testing
+`next build` without `--webpack` on a future Next.js patch release; if the
+bug is fixed upstream, this flag can come out.
 
 ## Testing
 
 ```bash
-npm test
+npm test        # unit tests (vitest)
+npm run test:e2e  # end-to-end tests (playwright) — starts its own prod server
 ```
 
-Unit tests cover the zod validation schemas (`src/lib/validations.ts`) and
-the slug-generation helper. There is currently no integration test suite for
-Server Actions or the dashboard CRUD flows — those were verified manually
-(build, lint, and a Playwright smoke pass across the public pages). Adding
-Playwright coverage for the contact form and a dashboard CRUD round-trip
-against a real Supabase test project would be the natural next step.
+**Unit tests** (`src/**/*.test.ts`) cover the zod validation schemas and the
+slug-generation helper.
+
+**E2E tests** (`e2e/`) cover:
+
+- `navigation.spec.ts` — every public page loads with no console errors and
+  the right `<h1>`, nav links route correctly, unknown routes/slugs 404
+  properly (status code, not just visible copy) with the site chrome intact.
+- `contact-form.spec.ts` — client-side validation, and a well-formed
+  submission failing gracefully without a live Supabase project.
+- `dashboard-auth.spec.ts` — signed-out visitors get redirected to `/login`
+  with the return path preserved, wrong credentials show an error.
+- `dashboard-crud.spec.ts` — a full create/edit/delete round-trip against a
+  **real** Supabase project. Skips automatically unless `E2E_ADMIN_EMAIL`
+  and `E2E_ADMIN_PASSWORD` are set:
+  ```bash
+  E2E_ADMIN_EMAIL=you@example.com E2E_ADMIN_PASSWORD=... npm run test:e2e
+  ```
+
+Writing this suite caught four real bugs worth knowing about if you're
+extending the app:
+
+1. Several public pages (`/about`, `/skills`, `/projects`, `/blog`,
+   `/testimonials`, `/contact`) had no `<h1>` at all — `SectionHeading`
+   always rendered `<h2>`. It now takes an `as="h1" | "h2"` prop; pass
+   `as="h1"` on a page's primary heading.
+2. `/projects/[slug]` and `/blog/[slug]` returned HTTP 200 instead of 404
+   for unknown slugs, because a shared `loading.tsx` added a Suspense
+   boundary above them — Next.js streams the response and locks in a 200
+   status before `notFound()` resolves deep in the tree. There's no
+   `(site)/loading.tsx` for this reason; if you add one, don't put it above
+   a route that calls `notFound()`.
+3. Submitting the login form while Supabase isn't configured 500'd instead
+   of showing a friendly error — `createServerClient()` throws synchronously
+   on a missing URL/key. `src/lib/supabase/server.ts`'s `createClient()` now
+   returns `null` in that case instead of throwing; every caller
+   (`requireAdmin()`, `dashboard/layout.tsx`, `lib/data/admin.ts`,
+   `login/actions.ts`) handles it. This affected every dashboard Server
+   Action, not just login.
+4. All 8 forms use `type="email"`/`required`-style native HTML validation
+   alongside zod — the browser's native validation was intercepting
+   submission before React ever saw it, showing an inconsistent native
+   tooltip instead of the app's styled error message. Every form now has
+   `noValidate` so the zod/react-hook-form error is the only one that shows.

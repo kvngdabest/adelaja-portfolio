@@ -21,6 +21,7 @@ export default async function SkillsPage() {
       <Container className="flex flex-col gap-16">
         <Reveal immediate>
           <SectionHeading
+            as="h1"
             eyebrow="Toolbox"
             title="Skills & tools"
             description="Automation and AI engineering on one side, product engineering on the other — I move fluidly between both."
