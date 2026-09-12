@@ -106,7 +106,13 @@
   --popover: color-mix(in oklch, var(--deep-navy) 92%, black 8%);
   --popover-foreground: var(--brand-white);
 
-  --primary: var(--cerulean);
+  /* Raw --cerulean on --brand-white text measures 4.33:1 — just under the
+   * 4.5:1 WCAG AA text threshold — which fails every solid-fill button
+   * site-wide. --cerulean itself is a locked brand token (accents, glows,
+   * borders, text-cerulean labels — contexts that aren't solid-fill text
+   * backgrounds), so --primary gets a slightly deepened derivative
+   * specifically for text-on-fill contexts like buttons. Measures ~4.9:1. */
+  --primary: color-mix(in oklch, var(--cerulean) 90%, black 10%);
   --primary-foreground: var(--brand-white);
 
   --secondary: color-mix(in oklch, var(--deep-navy) 85%, var(--prussian-blue) 15%);
@@ -135,7 +141,7 @@
 
   --sidebar: color-mix(in oklch, var(--deep-navy) 88%, var(--prussian-blue) 12%);
   --sidebar-foreground: var(--brand-white);
-  --sidebar-primary: var(--cerulean);
+  --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--brand-white);
   --sidebar-accent: color-mix(in oklch, var(--yale-blue) 40%, transparent);
   --sidebar-accent-foreground: var(--brand-white);
@@ -151,7 +157,7 @@
   --card-foreground: var(--brand-white);
   --popover: color-mix(in oklch, var(--deep-navy) 92%, black 8%);
   --popover-foreground: var(--brand-white);
-  --primary: var(--cerulean);
+  --primary: color-mix(in oklch, var(--cerulean) 90%, black 10%);
   --primary-foreground: var(--brand-white);
   --secondary: color-mix(in oklch, var(--deep-navy) 85%, var(--prussian-blue) 15%);
   --secondary-foreground: var(--brand-white);
@@ -166,7 +172,7 @@
   --ring: var(--cerulean);
   --sidebar: color-mix(in oklch, var(--deep-navy) 88%, var(--prussian-blue) 12%);
   --sidebar-foreground: var(--brand-white);
-  --sidebar-primary: var(--cerulean);
+  --sidebar-primary: var(--primary);
   --sidebar-primary-foreground: var(--brand-white);
   --sidebar-accent: color-mix(in oklch, var(--yale-blue) 40%, transparent);
   --sidebar-accent-foreground: var(--brand-white);

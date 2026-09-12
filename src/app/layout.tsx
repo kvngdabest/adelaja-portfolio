@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Inter, Audiowide, JetBrains_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
+import { MotionProvider } from "@/components/site/motion-provider";
 import "./globals.css";
 
 const inter = Inter({
@@ -57,10 +58,12 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`dark ${inter.variable} ${audiowide.variable} ${jetbrainsMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <TooltipProvider>
-          {children}
-          <Toaster theme="dark" />
-        </TooltipProvider>
+        <MotionProvider>
+          <TooltipProvider>
+            {children}
+            <Toaster theme="dark" />
+          </TooltipProvider>
+        </MotionProvider>
       </body>
     </html>
   );

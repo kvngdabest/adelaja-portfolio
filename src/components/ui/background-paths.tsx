@@ -1,17 +1,23 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 
+// 36 independently-animated SVG paths measured as the single largest
+// main-thread cost on the homepage (~2.8s of style/layout work in a
+// Lighthouse audit) — pathLength/pathOffset animation isn't a transform,
+// so it forces real path geometry recomputation every frame, unlike a
+// GPU-accelerated opacity/transform animation. Trimmed the count and,
+// below, skip the animation loop entirely under prefers-reduced-motion
+// (MotionConfig's reducedMotion="user" only covers transform-based
+// animations, not these).
+const PATH_COUNT = 16;
+
 export function FloatingPaths({ position }: { position: number }) {
-    // Lazy useState initializer: guaranteed by React to run exactly once
-    // (on mount), unlike a plain render-time call or a useMemo factory —
-    // both of which the React purity rule (correctly) rejects for impure
-    // calls like Math.random(). Calling it inline in the JSX below would
-    // also reset each path's animation duration on every re-render.
+    const shouldReduceMotion = useReducedMotion();
     const [paths] = useState(() =>
-        Array.from({ length: 36 }, (_, i) => ({
+        Array.from({ length: PATH_COUNT }, (_, i) => ({
             id: i,
             d: `M-${380 - i * 5 * position} -${189 + i * 6}C-${
                 380 - i * 5 * position
@@ -41,12 +47,16 @@ export function FloatingPaths({ position }: { position: number }) {
                         stroke="currentColor"
                         strokeWidth={path.width}
                         strokeOpacity={0.1 + path.id * 0.03}
-                        initial={{ pathLength: 0.3, opacity: 0.6 }}
-                        animate={{
-                            pathLength: 1,
-                            opacity: [0.3, 0.6, 0.3],
-                            pathOffset: [0, 1, 0],
-                        }}
+                        initial={{ pathLength: 0.3, opacity: shouldReduceMotion ? 0.4 : 0.6 }}
+                        animate={
+                            shouldReduceMotion
+                                ? undefined
+                                : {
+                                      pathLength: 1,
+                                      opacity: [0.3, 0.6, 0.3],
+                                      pathOffset: [0, 1, 0],
+                                  }
+                        }
                         transition={{
                             duration: path.duration,
                             repeat: Number.POSITIVE_INFINITY,
