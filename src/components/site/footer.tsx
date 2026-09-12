@@ -23,7 +23,7 @@ export async function Footer() {
   ].filter((s) => Boolean(s.href));
 
   return (
-    <footer className="mt-24 border-t border-border/60">
+    <footer className="mt-24 border-t border-border/60 print:hidden">
       <Container className="flex flex-col gap-8 py-12 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-2">
           <span className="font-heading text-sm font-semibold">

@@ -91,6 +91,7 @@ export const siteSettingsSchema = z.object({
   hero_tagline: z.string().max(200).optional().or(z.literal("")),
   hero_subheading: z.string().max(400).optional().or(z.literal("")),
   about_bio: z.string().optional().or(z.literal("")),
+  resume_summary: z.string().max(600).optional().or(z.literal("")),
   location: z.string().max(120).optional().or(z.literal("")),
   avatar_url: z.string().url().optional().or(z.literal("")),
   contact_email: z.string().email().optional().or(z.literal("")),

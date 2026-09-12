@@ -4,11 +4,12 @@
 -- API, React/Next.js, Python, Django) so the site reads correctly on day one.
 -- ============================================================================
 
-insert into public.admin_settings (hero_tagline, hero_subheading, about_bio, location, social_links, seo_defaults, contact_email)
+insert into public.admin_settings (hero_tagline, hero_subheading, about_bio, resume_summary, location, social_links, seo_defaults, contact_email)
 values (
   'AI Automation Engineer | n8n & AI Agents | Claude API | Python',
   'I design and ship automation systems and AI agent pipelines that remove manual work from real businesses — then wrap them in full-stack products people actually use.',
   'I''m Adelaja Obanijesu Israel, an AI automation developer, full-stack web developer, and entrepreneur based in Lagos, Nigeria. My work sits at the intersection of workflow automation (n8n), AI agent engineering (Claude API and friends), and product engineering (React/Next.js, Python, Django). I care about building systems that quietly save people time, and about shipping them with the same craft I''d want in a product I use myself.',
+  'AI Automation Engineer and full-stack developer with a track record of designing production n8n workflows and Claude API-powered agent pipelines that cut manual operational work for real teams, then shipping the full-stack products (React/Next.js, Python, Django) that surface them. Comfortable owning a project end to end — from architecture and API integration through to a client-facing dashboard.',
   'Lagos, Nigeria',
   '{"github": "https://github.com/", "linkedin": "https://www.linkedin.com/", "twitter": "https://twitter.com/", "upwork": "https://www.upwork.com/"}'::jsonb,
   '{"title": "Adelaja Obanijesu Israel — AI Automation & Full-Stack Developer", "description": "AI Automation Engineer building n8n workflows, AI agents, and full-stack products with React/Next.js, Python, and Django."}'::jsonb,
@@ -119,7 +120,10 @@ insert into public.resume_entries (title, organization, entry_type, start_date, 
     '2023-01-01',
     null,
     true,
-    'Designing and shipping n8n workflows and Claude API-powered agent pipelines for clients across support, sales, and operations.',
+    'Designed and shipped production n8n workflows and Claude API-powered agent pipelines for clients across support, sales, and operations.
+Built an AI support-triage agent that classifies and drafts responses to inbound tickets, cutting first-response time without adding headcount.
+Automated lead enrichment and outreach for a sales team, reducing manual research time to near zero.
+Owned client relationships end to end — requirements, architecture, delivery, and ongoing support.',
     1
   ),
   (
@@ -129,6 +133,12 @@ insert into public.resume_entries (title, organization, entry_type, start_date, 
     '2021-01-01',
     '2023-01-01',
     false,
-    'Built full-stack web applications with React, Next.js, Python, and Django for small businesses and startups.',
+    'Built and shipped full-stack web applications with React, Next.js, Python, and Django for small businesses and startups.
+Delivered authenticated dashboards, REST APIs, and database-backed content systems for non-technical clients to self-manage.
+Worked directly with founders to scope features and ship iteratively rather than working from fixed specs.',
     2
   );
+
+-- Add your education via /dashboard/resume — intentionally left blank rather
+-- than seeded with a placeholder institution/degree, since a resume's
+-- education section should never show unverified content.

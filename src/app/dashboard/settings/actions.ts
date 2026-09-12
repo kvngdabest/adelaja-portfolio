@@ -7,6 +7,8 @@ import { siteSettingsSchema, type SiteSettingsInput } from "@/lib/validations";
 export type ActionState = { success: boolean; error?: string };
 
 function revalidatePublic() {
+  // "layout" invalidates the root layout and everything nested beneath it,
+  // so every public page (including /resume) picks up the change.
   revalidatePath("/", "layout");
 }
 
@@ -25,6 +27,7 @@ export async function updateSiteSettings(input: SiteSettingsInput): Promise<Acti
     hero_tagline,
     hero_subheading,
     about_bio,
+    resume_summary,
     location,
     avatar_url,
     contact_email,
@@ -44,6 +47,7 @@ export async function updateSiteSettings(input: SiteSettingsInput): Promise<Acti
     hero_tagline: hero_tagline || null,
     hero_subheading: hero_subheading || null,
     about_bio: about_bio || null,
+    resume_summary: resume_summary || null,
     location: location || null,
     avatar_url: avatar_url || null,
     contact_email: contact_email || null,

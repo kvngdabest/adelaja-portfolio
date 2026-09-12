@@ -34,6 +34,7 @@ export function SettingsForm({ settings }: { settings: AdminSettings | null }) {
       hero_tagline: settings?.hero_tagline ?? "",
       hero_subheading: settings?.hero_subheading ?? "",
       about_bio: settings?.about_bio ?? "",
+      resume_summary: settings?.resume_summary ?? "",
       location: settings?.location ?? "",
       avatar_url: settings?.avatar_url ?? "",
       contact_email: settings?.contact_email ?? "",
@@ -111,6 +112,30 @@ export function SettingsForm({ settings }: { settings: AdminSettings | null }) {
                 <FormControl>
                   <FileUploadField bucket="site" value={field.value} onChange={field.onChange} />
                 </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+        </div>
+
+        <div className="glass flex flex-col gap-5 rounded-2xl p-6">
+          <h2 className="font-heading text-sm font-semibold text-cerulean">Resume / CV</h2>
+          <FormField
+            control={form.control}
+            name="resume_summary"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Professional summary</FormLabel>
+                <FormControl>
+                  <Textarea
+                    rows={4}
+                    placeholder="A tight, achievement-oriented headline for the top of your CV — different from the About page story."
+                    {...field}
+                  />
+                </FormControl>
+                <FormDescription>
+                  Shown at the top of the /resume page, above your experience timeline.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}

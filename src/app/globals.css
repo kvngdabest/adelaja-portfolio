@@ -244,3 +244,19 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* The site is dark-mode-only, but a printed page (e.g. saving the /resume
+ * CV to PDF from the browser) should never print a navy background — swap
+ * to plain white/black regardless of the page's own dark styling. */
+@media print {
+  body {
+    background: #ffffff !important;
+    color: #000000 !important;
+  }
+  .glass,
+  .glow-cerulean {
+    background: transparent !important;
+    box-shadow: none !important;
+    backdrop-filter: none !important;
+  }
+}

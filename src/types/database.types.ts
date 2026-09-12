@@ -16,6 +16,7 @@ export interface Database {
           hero_tagline: string | null;
           hero_subheading: string | null;
           about_bio: string | null;
+          resume_summary: string | null;
           location: string | null;
           avatar_url: string | null;
           social_links: Record<string, string>;

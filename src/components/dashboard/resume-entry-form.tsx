@@ -24,6 +24,7 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
+  FormDescription,
 } from "@/components/ui/form";
 import { resumeEntrySchema, type ResumeEntryInput } from "@/lib/validations";
 import type { ResumeEntry } from "@/types/database.types";
@@ -167,8 +168,16 @@ export function ResumeEntryForm({ entry }: { entry?: ResumeEntry }) {
               <FormItem>
                 <FormLabel>Description</FormLabel>
                 <FormControl>
-                  <Textarea rows={4} {...field} />
+                  <Textarea
+                    rows={4}
+                    placeholder="One achievement per line — each line becomes a bullet point"
+                    {...field}
+                  />
                 </FormControl>
+                <FormDescription>
+                  Write one line per achievement (e.g. &quot;Cut first-response time by automating
+                  ticket triage&quot;). Multiple lines render as bullets on the public /resume page.
+                </FormDescription>
                 <FormMessage />
               </FormItem>
             )}
