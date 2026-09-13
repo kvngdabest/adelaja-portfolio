@@ -9,6 +9,7 @@ import { TestimonialCard } from "@/components/site/testimonial-card";
 import { Button } from "@/components/ui/button";
 import { Hero } from "@/components/ui/hero-1";
 import { FloatingPaths } from "@/components/ui/background-paths";
+import { IntegrationsGrid } from "@/components/site/integrations-grid";
 import {
   getFeaturedProjects,
   getPublishedTestimonials,
@@ -124,6 +125,22 @@ export default async function HomePage() {
           </Container>
         </section>
       ) : null}
+
+      {/* Integrations */}
+      <section className="border-t border-border/60 py-24">
+        <Container className="grid items-center gap-12 lg:grid-cols-2">
+          <Reveal>
+            <SectionHeading
+              eyebrow="Connected"
+              title="Plugs into the tools you already use"
+              description="My n8n workflows and agent pipelines connect to the apps your team runs on day to day — no rip-and-replace, no new tools to learn."
+            />
+          </Reveal>
+          <Reveal delay={0.1}>
+            <IntegrationsGrid />
+          </Reveal>
+        </Container>
+      </section>
 
       {/* Testimonials */}
       {testimonials.length > 0 ? (
