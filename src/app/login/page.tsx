@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { LoginForm } from "@/components/dashboard/login-form";
+import { GatewayFlow } from "@/components/ui/gateway-flow";
 
 export const metadata: Metadata = {
   title: "Sign in",
@@ -9,7 +10,9 @@ export const metadata: Metadata = {
 export default function LoginPage() {
   return (
     <main className="relative flex min-h-screen items-center justify-center bg-background px-6">
-      <div aria-hidden className="bg-grid bg-mesh pointer-events-none absolute inset-0" />
+      <div className="absolute inset-0">
+        <GatewayFlow />
+      </div>
       <div className="glass glow-cerulean relative z-10 w-full max-w-sm rounded-2xl p-8">
         <div className="mb-8 flex flex-col gap-1 text-center">
           <span className="font-heading text-lg font-semibold" aria-hidden="true">
