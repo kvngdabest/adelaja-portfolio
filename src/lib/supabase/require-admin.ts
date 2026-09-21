@@ -21,5 +21,11 @@ export async function requireAdmin() {
     return null;
   }
 
+  // Being signed in is not enough: the user must be listed in public.admins.
+  const { data: isAdmin } = await supabase.rpc("is_admin");
+  if (isAdmin !== true) {
+    return null;
+  }
+
   return supabase;
 }

@@ -53,6 +53,20 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(redirectUrl);
   }
 
+  // A signed-in account that isn't an admin never sees the dashboard.
+  if (user && pathname.startsWith(PROTECTED_PREFIX)) {
+    const { data: isAdmin } = await supabase.rpc("is_admin");
+    if (isAdmin !== true) {
+      await supabase.auth.signOut();
+      const redirectUrl = request.nextUrl.clone();
+      redirectUrl.pathname = LOGIN_PATH;
+      redirectUrl.search = "";
+      const response = NextResponse.redirect(redirectUrl);
+      supabaseResponse.cookies.getAll().forEach((c) => response.cookies.set(c));
+      return response;
+    }
+  }
+
   if (user && pathname === LOGIN_PATH) {
     const redirectUrl = request.nextUrl.clone();
     redirectUrl.pathname = "/dashboard";

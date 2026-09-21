@@ -38,6 +38,13 @@ export async function submitContactForm(
     message,
   });
 
+  if (error?.message?.startsWith("rate_limited")) {
+    return {
+      success: false,
+      error: "Too many messages have been sent recently. Please try again in a little while.",
+    };
+  }
+
   if (error) {
     console.error("[contact] failed to save message:", error);
     return { success: false, error: "Something went wrong. Please try again." };
