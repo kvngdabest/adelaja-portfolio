@@ -6,6 +6,7 @@ import { useState } from "react";
 import { Menu } from "lucide-react";
 import { cn } from "cn";
 import { Container } from "@/components/site/container";
+import { ThemeToggle } from "@/components/site/theme-toggle";
 import { Button } from "@/components/ui/button";
 import {
   Sheet,
@@ -56,12 +57,15 @@ export function Navbar() {
           })}
         </nav>
 
-        <div className="hidden md:block">
+        <div className="hidden items-center gap-2 md:flex">
+          <ThemeToggle />
           <Button asChild size="sm" className="glow-cerulean-hover">
             <Link href="/contact">Get in touch</Link>
           </Button>
         </div>
 
+        <div className="flex items-center gap-1 md:hidden">
+        <ThemeToggle />
         <Sheet open={open} onOpenChange={setOpen}>
           <SheetTrigger asChild>
             <Button variant="ghost" size="icon" className="md:hidden" aria-label="Open menu">
@@ -93,6 +97,7 @@ export function Navbar() {
             </nav>
           </SheetContent>
         </Sheet>
+        </div>
       </Container>
     </header>
   );

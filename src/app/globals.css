@@ -85,7 +85,7 @@
   0%,
   22%,
   100% {
-    border-color: color-mix(in oklch, var(--yale-blue) 45%, transparent);
+    border-color: var(--glass-border);
     box-shadow: 0 0 0 0 transparent;
   }
   6%,
@@ -187,98 +187,110 @@
 }
 
 /*
- * Brand palette — exact tokens, do not alter hex values.
- * prussian-blue: base canvas | deep-navy: elevated surfaces
- * yale-blue: secondary accents/borders | cerulean: primary signal accent
- * brand-white: primary text on dark (off-white, not pure #fff)
+ * Two themes, switched by the .dark class on <html> (next-themes).
+ * Light: cool white canvas, deep-teal accent. Dark ("Studio"): near-black
+ * neutral canvas lit by one soft key light, colour kept for accents only.
+ * --cerulean is the accent for text, borders and glows in each theme;
+ * --primary is the solid button fill, tuned for >= 4.5:1 contrast.
  */
 :root {
   --prussian-blue: #0a1128;
   --deep-navy: #001f54;
   --yale-blue: #034078;
-  --cerulean: #1282a2;
   --brand-white: #fefcfb;
 
-  --background: var(--prussian-blue);
-  --foreground: var(--brand-white);
+  --cerulean: #0e7490;
+  --background: #f6f7f9;
+  --foreground: #0d1117;
+  --card: #ffffff;
+  --card-foreground: #0d1117;
+  --popover: #ffffff;
+  --popover-foreground: #0d1117;
+  --primary: #0e7490;
+  --primary-foreground: #ffffff;
+  --secondary: #eceff3;
+  --secondary-foreground: #0d1117;
+  --muted: #eceff3;
+  --muted-foreground: #556070;
+  --accent: #e3edf2;
+  --accent-foreground: #0d1117;
+  --destructive: oklch(0.58 0.22 25);
+  --destructive-foreground: #ffffff;
+  --border: rgba(15, 23, 42, 0.1);
+  --input: rgba(15, 23, 42, 0.16);
+  --ring: #0e7490;
 
-  --card: color-mix(in oklch, var(--deep-navy) 78%, var(--prussian-blue) 22%);
-  --card-foreground: var(--brand-white);
-  --popover: color-mix(in oklch, var(--deep-navy) 92%, black 8%);
-  --popover-foreground: var(--brand-white);
+  /* Lighting */
+  --glass-bg: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(15, 23, 42, 0.08);
+  --glass-shadow: 0 1px 2px rgba(15, 23, 42, 0.04), 0 12px 32px -18px rgba(15, 23, 42, 0.18);
+  --key-light: rgba(14, 116, 144, 0.12);
+  --grid-line: rgba(15, 23, 42, 0.06);
+  --network-rgb: 14, 116, 144;
+  --network-ink-rgb: 13, 17, 23;
 
-  /* Raw --cerulean on --brand-white text measures 4.33:1 — just under the
-   * 4.5:1 WCAG AA text threshold — which fails every solid-fill button
-   * site-wide. --cerulean itself is a locked brand token (accents, glows,
-   * borders, text-cerulean labels — contexts that aren't solid-fill text
-   * backgrounds), so --primary gets a slightly deepened derivative
-   * specifically for text-on-fill contexts like buttons. Measures ~4.9:1. */
-  --primary: color-mix(in oklch, var(--cerulean) 90%, black 10%);
-  --primary-foreground: var(--brand-white);
-
-  --secondary: color-mix(in oklch, var(--deep-navy) 85%, var(--prussian-blue) 15%);
-  --secondary-foreground: var(--brand-white);
-
-  --muted: color-mix(in oklch, var(--deep-navy) 55%, var(--prussian-blue) 45%);
-  --muted-foreground: color-mix(in oklch, var(--brand-white) 58%, var(--yale-blue) 42%);
-
-  --accent: var(--yale-blue);
-  --accent-foreground: var(--brand-white);
-
-  --destructive: oklch(0.65 0.21 25);
-  --destructive-foreground: var(--brand-white);
-
-  --border: color-mix(in oklch, var(--yale-blue) 45%, transparent);
-  --input: color-mix(in oklch, var(--yale-blue) 35%, transparent);
-  --ring: var(--cerulean);
-
-  --chart-1: var(--cerulean);
-  --chart-2: var(--yale-blue);
-  --chart-3: color-mix(in oklch, var(--cerulean) 60%, var(--brand-white) 40%);
-  --chart-4: color-mix(in oklch, var(--yale-blue) 70%, var(--brand-white) 30%);
-  --chart-5: color-mix(in oklch, var(--deep-navy) 60%, var(--cerulean) 40%);
+  --chart-1: #0e7490;
+  --chart-2: #3ba4c7;
+  --chart-3: #7cc4dc;
+  --chart-4: #556070;
+  --chart-5: #0d1117;
 
   --radius: 0.75rem;
 
-  --sidebar: color-mix(in oklch, var(--deep-navy) 88%, var(--prussian-blue) 12%);
-  --sidebar-foreground: var(--brand-white);
+  --sidebar: #ffffff;
+  --sidebar-foreground: #0d1117;
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--brand-white);
-  --sidebar-accent: color-mix(in oklch, var(--yale-blue) 40%, transparent);
-  --sidebar-accent-foreground: var(--brand-white);
-  --sidebar-border: color-mix(in oklch, var(--yale-blue) 40%, transparent);
-  --sidebar-ring: var(--cerulean);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #e3edf2;
+  --sidebar-accent-foreground: #0d1117;
+  --sidebar-border: rgba(15, 23, 42, 0.1);
+  --sidebar-ring: #0e7490;
 }
 
-/* Site is dark-mode-first by design; .dark mirrors :root so any dark: variant still resolves. */
 .dark {
-  --background: var(--prussian-blue);
-  --foreground: var(--brand-white);
-  --card: color-mix(in oklch, var(--deep-navy) 78%, var(--prussian-blue) 22%);
-  --card-foreground: var(--brand-white);
-  --popover: color-mix(in oklch, var(--deep-navy) 92%, black 8%);
-  --popover-foreground: var(--brand-white);
-  --primary: color-mix(in oklch, var(--cerulean) 90%, black 10%);
-  --primary-foreground: var(--brand-white);
-  --secondary: color-mix(in oklch, var(--deep-navy) 85%, var(--prussian-blue) 15%);
-  --secondary-foreground: var(--brand-white);
-  --muted: color-mix(in oklch, var(--deep-navy) 55%, var(--prussian-blue) 45%);
-  --muted-foreground: color-mix(in oklch, var(--brand-white) 58%, var(--yale-blue) 42%);
-  --accent: var(--yale-blue);
-  --accent-foreground: var(--brand-white);
+  --cerulean: #3ba4c7;
+  --background: #07080b;
+  --foreground: #eef1f6;
+  --card: #0d0f14;
+  --card-foreground: #eef1f6;
+  --popover: #0f1218;
+  --popover-foreground: #eef1f6;
+  --primary: #157a99;
+  --primary-foreground: #ffffff;
+  --secondary: #12151b;
+  --secondary-foreground: #eef1f6;
+  --muted: #12151b;
+  --muted-foreground: #8b93a3;
+  --accent: #171b23;
+  --accent-foreground: #eef1f6;
   --destructive: oklch(0.65 0.21 25);
-  --destructive-foreground: var(--brand-white);
-  --border: color-mix(in oklch, var(--yale-blue) 45%, transparent);
-  --input: color-mix(in oklch, var(--yale-blue) 35%, transparent);
-  --ring: var(--cerulean);
-  --sidebar: color-mix(in oklch, var(--deep-navy) 88%, var(--prussian-blue) 12%);
-  --sidebar-foreground: var(--brand-white);
+  --destructive-foreground: #ffffff;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #3ba4c7;
+
+  --glass-bg: linear-gradient(180deg, rgba(255, 255, 255, 0.035), rgba(255, 255, 255, 0.012));
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  --key-light: rgba(255, 255, 255, 0.08);
+  --grid-line: rgba(255, 255, 255, 0.04);
+  --network-rgb: 59, 164, 199;
+  --network-ink-rgb: 238, 241, 246;
+
+  --chart-1: #3ba4c7;
+  --chart-2: #157a99;
+  --chart-3: #7cc4dc;
+  --chart-4: #8b93a3;
+  --chart-5: #eef1f6;
+
+  --sidebar: #0d0f14;
+  --sidebar-foreground: #eef1f6;
   --sidebar-primary: var(--primary);
-  --sidebar-primary-foreground: var(--brand-white);
-  --sidebar-accent: color-mix(in oklch, var(--yale-blue) 40%, transparent);
-  --sidebar-accent-foreground: var(--brand-white);
-  --sidebar-border: color-mix(in oklch, var(--yale-blue) 40%, transparent);
-  --sidebar-ring: var(--cerulean);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: #171b23;
+  --sidebar-accent-foreground: #eef1f6;
+  --sidebar-border: rgba(255, 255, 255, 0.08);
+  --sidebar-ring: #3ba4c7;
 }
 
 @layer base {
@@ -299,8 +311,9 @@
 @layer utilities {
   /* Glassmorphic surface for elevated cards over the dark canvas */
   .glass {
-    background: color-mix(in oklch, var(--deep-navy) 55%, transparent);
-    border: 1px solid color-mix(in oklch, var(--yale-blue) 40%, transparent);
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--glass-shadow);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
   }
@@ -322,17 +335,16 @@
   /* Subtle mesh/grid backdrop for hero-scale sections */
   .bg-grid {
     background-image:
-      linear-gradient(to right, color-mix(in oklch, var(--yale-blue) 18%, transparent) 1px, transparent 1px),
-      linear-gradient(to bottom, color-mix(in oklch, var(--yale-blue) 18%, transparent) 1px, transparent 1px);
+      linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+      linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
     background-size: 56px 56px;
     mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
   }
 
   .bg-mesh {
     background:
-      radial-gradient(ellipse 60% 50% at 20% 0%, color-mix(in oklch, var(--cerulean) 22%, transparent), transparent 60%),
-      radial-gradient(ellipse 50% 40% at 90% 20%, color-mix(in oklch, var(--yale-blue) 20%, transparent), transparent 60%),
-      var(--prussian-blue);
+      radial-gradient(ellipse 70% 45% at 50% -10%, var(--key-light), transparent 65%),
+      var(--background);
   }
 
   /* HUD corner brackets + cursor spotlight, revealed on hover. Applied by
@@ -374,7 +386,7 @@
   }
 
   .text-gradient {
-    background: linear-gradient(90deg, var(--brand-white), var(--cerulean));
+    background: linear-gradient(90deg, var(--foreground), var(--cerulean));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

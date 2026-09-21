@@ -3,6 +3,7 @@ import { Inter, Audiowide, JetBrains_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { MotionProvider } from "@/components/site/motion-provider";
+import { ThemeProvider } from "@/components/site/theme-provider";
 import { SITE_DESCRIPTION, SITE_ROLE } from "@/lib/content/positioning";
 import "./globals.css";
 
@@ -46,23 +47,29 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#0a1128",
-  colorScheme: "dark",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f6f7f9" },
+    { media: "(prefers-color-scheme: dark)", color: "#07080b" },
+  ],
+  colorScheme: "dark light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`dark ${inter.variable} ${audiowide.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      className={`${inter.variable} ${audiowide.variable} ${jetbrainsMono.variable} h-full antialiased`}
+      suppressHydrationWarning
     >
       <body className="min-h-full flex flex-col bg-background text-foreground">
-        <MotionProvider>
-          <TooltipProvider>
-            {children}
-            <Toaster theme="dark" />
-          </TooltipProvider>
-        </MotionProvider>
+        <ThemeProvider>
+          <MotionProvider>
+            <TooltipProvider>
+              {children}
+              <Toaster />
+            </TooltipProvider>
+          </MotionProvider>
+        </ThemeProvider>
       </body>
     </html>
   );

@@ -256,7 +256,7 @@ export function PipelineSection({
                     className="absolute top-1/2 left-full hidden h-px w-8 -translate-y-1/2 overflow-hidden bg-border lg:block"
                   >
                     <span
-                      className="absolute top-0 h-px w-1/2 animate-[pulse-x_7s_linear_infinite] bg-gradient-to-r from-transparent via-cerulean to-brand-white"
+                      className="absolute top-0 h-px w-1/2 animate-[pulse-x_7s_linear_infinite] bg-gradient-to-r from-transparent via-cerulean to-foreground"
                       style={{ animationDelay: `${i * 0.9 + 0.45}s` }}
                     />
                   </span>
@@ -265,7 +265,7 @@ export function PipelineSection({
                     className="absolute top-full left-1/2 block h-6 w-px -translate-x-1/2 overflow-hidden bg-border lg:hidden"
                   >
                     <span
-                      className="absolute left-0 h-1/2 w-px animate-[pulse-y_7s_linear_infinite] bg-gradient-to-b from-transparent via-cerulean to-brand-white"
+                      className="absolute left-0 h-1/2 w-px animate-[pulse-y_7s_linear_infinite] bg-gradient-to-b from-transparent via-cerulean to-foreground"
                       style={{ animationDelay: `${i * 0.9 + 0.45}s` }}
                     />
                   </span>

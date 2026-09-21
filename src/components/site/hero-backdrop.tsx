@@ -43,6 +43,15 @@ export function HeroBackdrop() {
     const pulses: Pulse[] = [];
     const mouse = { x: -9999, y: -9999 };
     let lastSpawn = 0;
+    // "r, g, b" strings from the theme tokens; refreshed when the theme changes.
+    let line = "18,130,162";
+    let ink = "254,252,251";
+    function readColors() {
+      const css = getComputedStyle(document.documentElement);
+      line = css.getPropertyValue("--network-rgb").trim() || line;
+      ink = css.getPropertyValue("--network-ink-rgb").trim() || ink;
+    }
+    readColors();
 
     function resize() {
       const rect = wrap!.getBoundingClientRect();
@@ -102,7 +111,7 @@ export function HeroBackdrop() {
         for (let j = i + 1; j < nodes.length; j++) {
           const d = Math.hypot(nodes[i].x - nodes[j].x, nodes[i].y - nodes[j].y);
           if (d < LINK_DISTANCE) {
-            ctx!.strokeStyle = `rgba(18,130,162,${(1 - d / LINK_DISTANCE) * 0.6})`;
+            ctx!.strokeStyle = `rgba(${line},${(1 - d / LINK_DISTANCE) * 0.6})`;
             ctx!.lineWidth = 1;
             ctx!.beginPath();
             ctx!.moveTo(nodes[i].x, nodes[i].y);
@@ -114,7 +123,7 @@ export function HeroBackdrop() {
 
       for (const n of nodes) {
         const near = Math.hypot(mouse.x - n.x, mouse.y - n.y) < MOUSE_RADIUS;
-        ctx!.fillStyle = near ? "rgba(254,252,251,0.95)" : "rgba(40,170,205,0.95)";
+        ctx!.fillStyle = near ? `rgba(${ink},0.95)` : `rgba(${line},0.95)`;
         ctx!.beginPath();
         ctx!.arc(n.x, n.y, near ? 3 : 2.2, 0, Math.PI * 2);
         ctx!.fill();
@@ -150,9 +159,9 @@ export function HeroBackdrop() {
           const x = A.x + (B.x - A.x) * pulse.t;
           const y = A.y + (B.y - A.y) * pulse.t;
           const glow = ctx!.createRadialGradient(x, y, 0, x, y, 9);
-          glow.addColorStop(0, "rgba(254,252,251,0.95)");
-          glow.addColorStop(0.35, "rgba(18,130,162,0.7)");
-          glow.addColorStop(1, "rgba(18,130,162,0)");
+          glow.addColorStop(0, `rgba(${ink},0.95)`);
+          glow.addColorStop(0.35, `rgba(${line},0.7)`);
+          glow.addColorStop(1, `rgba(${line},0)`);
           ctx!.fillStyle = glow;
           ctx!.beginPath();
           ctx!.arc(x, y, 9, 0, Math.PI * 2);
@@ -184,6 +193,15 @@ export function HeroBackdrop() {
     });
     io.observe(wrap);
 
+    const themeObserver = new MutationObserver(() => {
+      readColors();
+      if (reduced) draw(0);
+    });
+    themeObserver.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["class"],
+    });
+
     function onPointerMove(e: PointerEvent) {
       if (e.pointerType !== "mouse") return;
       const rect = wrap!.getBoundingClientRect();
@@ -207,6 +225,7 @@ export function HeroBackdrop() {
       cancelAnimationFrame(raf);
       ro.disconnect();
       io.disconnect();
+      themeObserver.disconnect();
       window.removeEventListener("pointermove", onPointerMove);
       document.removeEventListener("pointerleave", onPointerLeave);
     };
