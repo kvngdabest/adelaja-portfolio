@@ -164,10 +164,14 @@ export function ProjectForm({ project }: { project?: Project }) {
             name="video_url"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Sample video URL (optional)</FormLabel>
+                <FormLabel>Video URL (optional)</FormLabel>
                 <FormControl>
                   <Input placeholder="https://... .mp4" {...field} />
                 </FormControl>
+                <p className="text-xs text-muted-foreground">
+                  Portrait 9:16 MP4. Upload a preview image next to it named the same
+                  with &quot;-poster.jpg&quot; (e.g. clip.mp4 and clip-poster.jpg).
+                </p>
                 <FormMessage />
               </FormItem>
             )}

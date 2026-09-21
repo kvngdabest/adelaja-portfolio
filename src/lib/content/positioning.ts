@@ -116,13 +116,8 @@ export const PROCESS_STEPS: ProcessStep[] = [
 export const PIPELINE_STEPS: PipelineStep[] = [
   {
     label: "Input",
-    title: "Product image",
-    detail: "Added to a Google Sheet or Drive folder.",
-  },
-  {
-    label: "Automate",
-    title: "n8n",
-    detail: "Detects the trigger and runs the whole flow.",
+    title: "Product + brief",
+    detail: "A product image and brief are added to a Google Sheet.",
   },
   {
     label: "Script",
@@ -130,19 +125,24 @@ export const PIPELINE_STEPS: PipelineStep[] = [
     detail: "Writes the scene-by-scene prompts.",
   },
   {
-    label: "Generate",
+    label: "Scenes",
     title: "Kie AI",
-    detail: "Generates the video scenes.",
+    detail: "Generates the scene images from those prompts.",
   },
   {
-    label: "Assemble",
-    title: "Creatomate",
-    detail: "Cuts the finished, branded video.",
+    label: "Approve",
+    title: "Client review",
+    detail: "Approve, or leave a note. Only flagged scenes regenerate.",
+  },
+  {
+    label: "Produce",
+    title: "Kie AI + Creatomate",
+    detail: "Approved scenes become video, cut into the final ad.",
   },
   {
     label: "Publish",
     title: "Blotato",
-    detail: "Posts to social platforms, no manual upload.",
+    detail: "Posts to every platform automatically.",
   },
 ];
 

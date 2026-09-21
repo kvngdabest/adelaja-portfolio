@@ -28,7 +28,7 @@ test.describe("homepage experience", () => {
     await page.goto("/");
     await expect(page.getByText(/Excellent work, fast and super professional/i)).toBeVisible();
     await expect(page.getByText(/results were absolutely extraordinary/i)).toBeVisible();
-    await expect(page.locator("video[src*='sample-output']").first()).toBeAttached();
+    await expect(page.locator("video[src*='final-output']").first()).toBeAttached();
   });
 
   test("project page for the Seraman pipeline includes its sample video", async ({ page }) => {

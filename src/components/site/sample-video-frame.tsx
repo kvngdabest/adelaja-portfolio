@@ -17,22 +17,17 @@ export function SampleVideoFrame({
         className
       )}
     >
-      <div className="relative overflow-hidden rounded-[1.5rem]">
-        <video
-          src={src}
-          controls
-          playsInline
-          preload="metadata"
-          aria-label={label}
-          className="aspect-[9/16] w-full bg-black object-cover"
-        />
-        {/* The current Seraman clip has an internal comparison label burned
-         * into its top edge. Masked here until a clean export is uploaded. */}
-        <div
-          aria-hidden
-          className="pointer-events-none absolute inset-x-0 top-0 h-[11%] bg-gradient-to-b from-black from-75% to-transparent"
-        />
-      </div>
+      {/* Convention: a preview frame stored beside the video as
+       * "<name>-poster.jpg" (the clip itself may open on black). */}
+      <video
+        src={src}
+        poster={src.replace(/\.mp4$/i, "-poster.jpg")}
+        controls
+        playsInline
+        preload="metadata"
+        aria-label={label}
+        className="aspect-[9/16] w-full rounded-[1.5rem] bg-black object-cover"
+      />
     </div>
   );
 }

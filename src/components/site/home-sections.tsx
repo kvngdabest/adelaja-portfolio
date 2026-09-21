@@ -206,8 +206,8 @@ export function PipelineSection({
         <Reveal>
           <SectionHeading
             eyebrow="See it run"
-            title="One product image in. Finished videos out."
-            description="This is the pipeline I built for Seraman. Each step hands off to the next automatically, so nobody edits, exports or uploads by hand."
+            title="One product image in. A finished ad, posted everywhere."
+            description="This is the pipeline I built for Seraman. n8n runs every step: a product image goes in, the client approves the scenes, and the finished video is posted to every platform with no editing, exporting or uploading by hand."
           />
         </Reveal>
 
@@ -265,11 +265,11 @@ export function PipelineSection({
           <div className="grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
             <Reveal className="flex flex-col gap-5">
               <h3 className="font-heading text-2xl font-semibold text-balance">
-                The result: a finished product video
+                The final output: a finished product ad
               </h3>
               <p className="max-w-lg text-pretty text-muted-foreground">
-                A real output from that pipeline for Seraman, generated end to end by
-                the workflow. Press play to watch it.
+                This is the actual video the pipeline produced for Seraman, made and
+                published by the workflow. Press play to watch it.
               </p>
               <div className="flex flex-wrap gap-3">
                 <Button asChild className="glow-cerulean-hover">

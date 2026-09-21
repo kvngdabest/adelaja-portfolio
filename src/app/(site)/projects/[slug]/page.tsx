@@ -132,10 +132,10 @@ export default async function ProjectDetailPage({
                 <figure className="mx-auto flex w-[240px] flex-col gap-3 sm:w-[270px] lg:sticky lg:top-24 lg:mx-0">
                   <SampleVideoFrame
                     src={project.video_url}
-                    label={`Sample output from ${project.title}`}
+                    label={`Final output from ${project.title}`}
                   />
                   <figcaption className="text-center font-mono text-[0.65rem] tracking-wide text-muted-foreground uppercase">
-                    Sample output from this project
+                    Final output from this project
                   </figcaption>
                 </figure>
               </Reveal>
