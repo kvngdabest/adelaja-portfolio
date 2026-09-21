@@ -173,7 +173,7 @@ export default async function HomePage() {
             <SectionHeading
               eyebrow="Connected"
               title="Plugs into the tools you already use"
-              description="My n8n workflows and agent pipelines connect to the apps your team runs on day to day — no rip-and-replace, no new tools to learn."
+              description="35+ tools I build with every day, from AI models to CRMs to the apps your team already runs on. No rip-and-replace, no new tools to learn. Hover a tile to see its name; tap it to visit the tool."
             />
           </Reveal>
           <Reveal delay={0.1}>
