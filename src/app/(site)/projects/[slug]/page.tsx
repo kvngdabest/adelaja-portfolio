@@ -7,6 +7,7 @@ import { Container } from "@/components/site/container";
 import { Reveal } from "@/components/site/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { ProjectCta } from "@/components/site/project-cta";
 import { getProjectBySlug, getPublishedProjects } from "@/lib/data/public";
 
 export const revalidate = 300;
@@ -115,6 +116,10 @@ export default async function ProjectDetailPage({
             </div>
           </Reveal>
         ) : null}
+
+        <Reveal delay={0.24}>
+          <ProjectCta />
+        </Reveal>
       </Container>
     </article>
   );
