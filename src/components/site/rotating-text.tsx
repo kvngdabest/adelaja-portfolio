@@ -21,7 +21,9 @@ export function RotatingText({ items }: { items: string[] }) {
     // flex (not inline-flex) so every phrase gets its own centered line; with
     // inline-flex, phrases short enough to sit beside "builds" overflowed the
     // container on desktop while longer ones wrapped, so layout varied per phrase.
-    <span className="relative flex h-[2.6em] items-center justify-center overflow-hidden">
+    // Only wide screens fit every phrase on one line, so only they get the
+    // single-line height (keeps the CTA buttons above the fold).
+    <span className="relative flex h-[2.6em] items-center justify-center overflow-hidden min-[1400px]:h-[1.3em]">
       <AnimatePresence mode="wait">
         <motion.span
           key={items[index]}

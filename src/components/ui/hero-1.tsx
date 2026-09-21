@@ -4,8 +4,13 @@ import type { ReactNode } from "react"
 import Link from "next/link"
 import { ArrowRight, ChevronRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
+import { ScrambleText } from "@/components/site/scramble-text"
 
 interface HeroProps {
+  /** Decorative layer rendered above the section background, below the content. */
+  backdrop?: ReactNode
+  /** Extra content rendered directly under the call-to-action buttons. */
+  belowCta?: ReactNode
   eyebrow?: string
   /** Only renders the eyebrow as a link if provided — otherwise it's a plain badge. */
   eyebrowHref?: string
@@ -18,6 +23,8 @@ interface HeroProps {
 }
 
 export function Hero({
+  backdrop,
+  belowCta,
   eyebrow = "Innovate Without Limits",
   eyebrowHref,
   title,
@@ -33,7 +40,7 @@ export function Hero({
       border border-border/60 bg-card/60 px-5 py-2 font-mono text-xs
       tracking-tight text-muted-foreground uppercase"
     >
-      {eyebrow}
+      <ScrambleText text={eyebrow} />
       {eyebrowHref ? (
         <ChevronRight className="inline w-4 h-4 ml-2 transition-transform duration-300 group-hover:translate-x-1" />
       ) : null}
@@ -60,6 +67,9 @@ export function Hero({
         opacity-20 animate-fade-up"
       />
 
+      {backdrop ? <div className="absolute inset-0 z-0">{backdrop}</div> : null}
+
+      <div className="relative z-10">
       {/* Eyebrow */}
       {eyebrowContent ? (
         eyebrowHref ? (
@@ -109,6 +119,9 @@ export function Hero({
           ) : null}
         </div>
       )}
+
+      {belowCta}
+      </div>
 
       {/* Bottom Fade */}
       <div

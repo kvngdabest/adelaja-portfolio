@@ -1,7 +1,7 @@
 import { ImageResponse } from "next/og";
 
 export const alt =
-  "Adelaja Obanijesu Israel — Front-End Developer & AI Content Creator";
+  "Adelaja Obanijesu Israel — AI Automation Engineer & Front-End Developer";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -33,7 +33,7 @@ export default function OpengraphImage() {
             marginBottom: 28,
           }}
         >
-          Front-End Developer &amp; AI Content Creator
+          AI Automation Engineer &amp; Front-End Developer
         </div>
         <div
           style={{
@@ -56,7 +56,7 @@ export default function OpengraphImage() {
             maxWidth: 920,
           }}
         >
-          React/Next.js · AI video · Design · Sales &amp; CRM automation
+          n8n · AI agents · CRM automation · AI video · Front-end
         </div>
         <div
           style={{

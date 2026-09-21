@@ -1,4 +1,5 @@
 import { cn } from "cn";
+import { ScrambleText } from "@/components/site/scramble-text";
 
 export function SectionHeading({
   eyebrow,
@@ -28,7 +29,7 @@ export function SectionHeading({
     >
       {eyebrow ? (
         <span className="font-mono text-xs tracking-[0.2em] text-cerulean uppercase">
-          {eyebrow}
+          <ScrambleText text={eyebrow} />
         </span>
       ) : null}
       <Heading className="text-3xl font-semibold text-balance sm:text-4xl">

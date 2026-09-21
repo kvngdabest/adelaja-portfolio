@@ -8,6 +8,7 @@ import { Reveal } from "@/components/site/reveal";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { ProjectCta } from "@/components/site/project-cta";
+import { SampleVideoFrame } from "@/components/site/sample-video-frame";
 import { getProjectBySlug, getPublishedProjects } from "@/lib/data/public";
 
 export const revalidate = 300;
@@ -105,16 +106,41 @@ export default async function ProjectDetailPage({
           </Reveal>
         ) : null}
 
-        {project.description ? (
-          <Reveal delay={0.18}>
-            <div className="max-w-2xl text-pretty leading-relaxed text-foreground/90">
-              {project.description.split("\n").filter(Boolean).map((p, i) => (
-                <p key={i} className="mb-4">
-                  {p}
-                </p>
-              ))}
-            </div>
-          </Reveal>
+        {project.description || project.video_url ? (
+          <div
+            className={
+              project.video_url
+                ? "grid gap-10 lg:grid-cols-[minmax(0,1fr)_280px] lg:items-start"
+                : "grid gap-10"
+            }
+          >
+            {project.description ? (
+              <Reveal delay={0.18}>
+                <div className="max-w-2xl text-pretty leading-relaxed text-foreground/90">
+                  {project.description.split("\n").filter(Boolean).map((p, i) => (
+                    <p key={i} className="mb-4">
+                      {p}
+                    </p>
+                  ))}
+                </div>
+              </Reveal>
+            ) : (
+              <div />
+            )}
+            {project.video_url ? (
+              <Reveal delay={0.2}>
+                <figure className="mx-auto flex w-[240px] flex-col gap-3 sm:w-[270px] lg:sticky lg:top-24 lg:mx-0">
+                  <SampleVideoFrame
+                    src={project.video_url}
+                    label={`Sample output from ${project.title}`}
+                  />
+                  <figcaption className="text-center font-mono text-[0.65rem] tracking-wide text-muted-foreground uppercase">
+                    Sample output from this project
+                  </figcaption>
+                </figure>
+              </Reveal>
+            ) : null}
+          </div>
         ) : null}
 
         <Reveal delay={0.24}>

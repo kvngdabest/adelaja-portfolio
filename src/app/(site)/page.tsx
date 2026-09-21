@@ -12,9 +12,14 @@ import { FloatingPaths } from "@/components/ui/background-paths";
 import { IntegrationsGrid } from "@/components/site/integrations-grid";
 import {
   BrandsSection,
+  PipelineSection,
   ProcessSection,
   ServicesSection,
+  Ticker,
 } from "@/components/site/home-sections";
+import { HeroBackdrop, HeroHud } from "@/components/site/hero-backdrop";
+import { BootLine } from "@/components/site/boot-line";
+import { TiltCard } from "@/components/site/tilt-card";
 import {
   getFeaturedProjects,
   getPublishedTestimonials,
@@ -25,10 +30,11 @@ import {
 export const revalidate = 300;
 
 const rotatingRoles = [
-  "Fast Front-End Websites",
+  "AI Workflow Automation",
+  "AI Agents & Chatbots",
+  "CRM & Lead Systems",
   "AI Product Videos",
-  "Sales & CRM Systems",
-  "n8n Workflow Automation",
+  "Front-End Websites",
 ];
 
 export default async function HomePage() {
@@ -41,13 +47,21 @@ export default async function HomePage() {
     ]);
 
   const categories = Object.keys(skillsByCategory);
+  const videoProject = featuredProjects.find((p) => p.video_url);
 
   return (
     <>
       {/* Hero */}
-      <div className="border-b border-border/60">
+      <div>
         <Hero
-          eyebrow="Available for front-end, AI video & sales-automation projects"
+          backdrop={
+            <>
+              <HeroBackdrop />
+              <HeroHud />
+            </>
+          }
+          belowCta={<BootLine />}
+          eyebrow="Available for AI automation projects"
           title={
             <>
               Adelaja Obanijesu Israel builds{" "}
@@ -56,7 +70,7 @@ export default async function HomePage() {
           }
           subtitle={
             settings?.hero_subheading ??
-            "Front-end developer and AI content creator based in Lagos, Nigeria — building fast websites, making AI video and design for product brands, and keeping their sales teams organised."
+            "AI automation engineer based in Lagos, Nigeria — building AI automations, agents and CRM systems that remove manual work, plus the AI video, design and front-end that help product brands sell."
           }
           ctaLabel="View my work"
           ctaHref="/projects"
@@ -65,8 +79,19 @@ export default async function HomePage() {
         />
       </div>
 
+      <Ticker />
       <ServicesSection />
       <BrandsSection />
+      <PipelineSection
+        video={
+          videoProject?.video_url
+            ? {
+                src: videoProject.video_url,
+                href: `/projects/${videoProject.slug}`,
+              }
+            : null
+        }
+      />
 
       {/* Featured projects */}
       {featuredProjects.length > 0 ? (
@@ -82,7 +107,9 @@ export default async function HomePage() {
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {featuredProjects.map((project, i) => (
                 <Reveal key={project.id} delay={i * 0.08}>
-                  <ProjectCard project={project} />
+                  <TiltCard>
+                    <ProjectCard project={project} />
+                  </TiltCard>
                 </Reveal>
               ))}
             </div>
@@ -160,6 +187,7 @@ export default async function HomePage() {
               <SectionHeading
                 eyebrow="Kind words"
                 title="What clients say"
+                description="5-star reviews from clients I've delivered for."
                 align="center"
                 className="mx-auto"
               />
@@ -185,7 +213,7 @@ export default async function HomePage() {
                 Ready to fix what&apos;s slowing your brand down?
               </h2>
               <p className="relative z-10 max-w-md text-pretty text-muted-foreground">
-                Tell me about your website, content or sales pipeline.
+                Tell me about the workflow, content or sales pipeline you want handled.
               </p>
               <Button asChild size="lg" className="glow-cerulean-hover relative z-10">
                 <Link href="/contact">

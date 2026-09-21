@@ -45,6 +45,7 @@ export function ProjectForm({ project }: { project?: Project }) {
       summary: project?.summary ?? "",
       description: project?.description ?? "",
       cover_image_url: project?.cover_image_url ?? "",
+      video_url: project?.video_url ?? "",
       tech_stack: project?.tech_stack ?? [],
       project_url: project?.project_url ?? "",
       repo_url: project?.repo_url ?? "",
@@ -152,6 +153,20 @@ export function ProjectForm({ project }: { project?: Project }) {
                     value={field.value}
                     onChange={field.onChange}
                   />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+
+          <FormField
+            control={form.control}
+            name="video_url"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Sample video URL (optional)</FormLabel>
+                <FormControl>
+                  <Input placeholder="https://... .mp4" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

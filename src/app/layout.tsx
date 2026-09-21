@@ -3,6 +3,7 @@ import { Inter, Audiowide, JetBrains_Mono } from "next/font/google";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { MotionProvider } from "@/components/site/motion-provider";
+import { SITE_DESCRIPTION, SITE_ROLE } from "@/lib/content/positioning";
 import "./globals.css";
 
 const inter = Inter({
@@ -29,17 +30,15 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Adelaja Obanijesu Israel — Front-End Developer & AI Content Creator",
+    default: `Adelaja Obanijesu Israel — ${SITE_ROLE}`,
     template: "%s — Adelaja Obanijesu Israel",
   },
-  description:
-    "Front-end developer who builds fast websites and creates AI video, design, and sales-automation systems for product brands. Based in Lagos, Nigeria.",
+  description: SITE_DESCRIPTION,
   openGraph: {
     type: "website",
     siteName: "Adelaja Obanijesu Israel",
-    title: "Adelaja Obanijesu Israel — Front-End Developer & AI Content Creator",
-    description:
-      "Front-end developer who builds fast websites and creates AI video, design, and sales-automation systems for product brands.",
+    title: `Adelaja Obanijesu Israel — ${SITE_ROLE}`,
+    description: SITE_DESCRIPTION,
   },
   twitter: {
     card: "summary_large_image",

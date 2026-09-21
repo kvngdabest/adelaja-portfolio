@@ -19,6 +19,7 @@ export const projectSchema = z.object({
   summary: z.string().max(280).optional().or(z.literal("")),
   description: z.string().optional().or(z.literal("")),
   cover_image_url: z.string().url().optional().or(z.literal("")),
+  video_url: z.string().url().optional().or(z.literal("")),
   tech_stack: z.array(z.string().min(1)).default([]),
   project_url: z.string().url().optional().or(z.literal("")),
   repo_url: z.string().url().optional().or(z.literal("")),

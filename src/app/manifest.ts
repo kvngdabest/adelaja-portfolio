@@ -1,11 +1,11 @@
 import type { MetadataRoute } from "next";
+import { SITE_DESCRIPTION, SITE_ROLE } from "@/lib/content/positioning";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Adelaja Obanijesu Israel — Front-End Developer & AI Content Creator",
+    name: `Adelaja Obanijesu Israel — ${SITE_ROLE}`,
     short_name: "Adelaja",
-    description:
-      "Front-end developer creating fast websites, AI video content, and sales automation for product brands.",
+    description: SITE_DESCRIPTION,
     start_url: "/",
     display: "standalone",
     background_color: "#0a1128",

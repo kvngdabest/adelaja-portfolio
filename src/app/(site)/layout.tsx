@@ -1,5 +1,6 @@
 import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
+import { ScrollProgress } from "@/components/site/scroll-progress";
 import { getSiteSettings } from "@/lib/data/public";
 
 export default async function SiteLayout({
@@ -32,6 +33,7 @@ export default async function SiteLayout({
       >
         Skip to content
       </a>
+      <ScrollProgress />
       <Navbar />
       <main id="main-content" className="flex-1">
         {children}

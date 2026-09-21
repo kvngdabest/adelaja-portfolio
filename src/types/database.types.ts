@@ -38,6 +38,7 @@ export interface Database {
           summary: string | null;
           description: string | null;
           cover_image_url: string | null;
+          video_url: string | null;
           tech_stack: string[];
           project_url: string | null;
           repo_url: string | null;

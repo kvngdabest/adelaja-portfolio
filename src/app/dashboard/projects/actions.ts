@@ -23,6 +23,7 @@ export async function createProject(input: ProjectInput): Promise<ActionState> {
   const { error } = await supabase.from("projects").insert({
     ...parsed.data,
     cover_image_url: parsed.data.cover_image_url || null,
+    video_url: parsed.data.video_url || null,
     project_url: parsed.data.project_url || null,
     repo_url: parsed.data.repo_url || null,
     summary: parsed.data.summary || null,
@@ -47,6 +48,7 @@ export async function updateProject(id: string, input: ProjectInput): Promise<Ac
     .update({
       ...parsed.data,
       cover_image_url: parsed.data.cover_image_url || null,
+      video_url: parsed.data.video_url || null,
       project_url: parsed.data.project_url || null,
       repo_url: parsed.data.repo_url || null,
       summary: parsed.data.summary || null,

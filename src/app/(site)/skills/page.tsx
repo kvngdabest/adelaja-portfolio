@@ -9,7 +9,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Skills",
-  description: "Front-end development, AI video and design, sales and CRM operations, and automation — React/Next.js, CorelDRAW, Photoshop, n8n.",
+  description: "AI automation, CRM and lead systems, AI video and design, and front-end development — n8n, Make, Zapier, GoHighLevel, Claude, CorelDRAW, React/Next.js.",
 };
 
 export default async function SkillsPage() {
@@ -24,7 +24,7 @@ export default async function SkillsPage() {
             as="h1"
             eyebrow="Toolbox"
             title="Skills & tools"
-            description="Front-end craft, design and video on the creative side; sales operations and automation on the business side — the mix that helps a brand sell."
+            description="Automation, AI and CRM systems on the business side; video, design and front-end craft on the creative side — the mix that helps a brand sell."
           />
         </Reveal>
 
