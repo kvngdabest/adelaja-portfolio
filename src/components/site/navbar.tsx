@@ -59,7 +59,7 @@ export function Navbar() {
 
         <div className="hidden items-center gap-2 md:flex">
           <ThemeToggle />
-          <Button asChild size="sm" className="glow-cerulean-hover">
+          <Button asChild size="sm" className="btn-gradient glow-cerulean-hover">
             <Link href="/contact">Get in touch</Link>
           </Button>
         </div>

@@ -58,15 +58,6 @@ export function Hero({
         className="bg-grid absolute -z-10 inset-0 h-[600px] w-full opacity-80"
       />
 
-      {/* Radial Accent */}
-      <div
-        className="absolute left-1/2 top-[calc(100%-90px)] lg:top-[calc(100%-150px)]
-        h-[500px] w-[700px] md:h-[500px] md:w-[1100px] lg:h-[750px] lg:w-[140%]
-        -translate-x-1/2 rounded-[100%]
-        bg-[radial-gradient(closest-side,var(--cerulean)_0%,transparent_70%)]
-        opacity-20 animate-fade-up"
-      />
-
       {backdrop ? <div className="absolute inset-0 z-0">{backdrop}</div> : null}
 
       <div className="relative z-10">
@@ -106,7 +97,7 @@ export function Hero({
           <Button
             asChild
             size="lg"
-            className="glow-cerulean-hover z-20 w-fit tracking-tighter text-lg"
+            className="btn-gradient glow-cerulean-hover z-20 w-fit tracking-tighter text-lg"
           >
             <Link href={ctaHref}>
               {ctaLabel} <ArrowRight className="size-4" />

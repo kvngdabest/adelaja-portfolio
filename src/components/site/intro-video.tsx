@@ -6,7 +6,7 @@ export function IntroVideo({ className }: { className?: string }) {
   return (
     <div
       className={cn(
-        "glow-cerulean overflow-hidden rounded-2xl border border-border/70 bg-black",
+        "gradient-border rounded-2xl bg-black p-[1.5px]",
         className
       )}
     >
@@ -17,7 +17,7 @@ export function IntroVideo({ className }: { className?: string }) {
         playsInline
         preload="metadata"
         aria-label="Adelaja Obanijesu Israel introduces how he approaches AI automation"
-        className="aspect-video w-full bg-black object-cover"
+        className="aspect-video w-full rounded-[14px] bg-black object-cover"
       />
     </div>
   );

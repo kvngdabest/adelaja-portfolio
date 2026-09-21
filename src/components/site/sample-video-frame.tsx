@@ -13,7 +13,7 @@ export function SampleVideoFrame({
   return (
     <div
       className={cn(
-        "glow-cerulean rounded-[2rem] border border-border/70 bg-black p-2",
+        "gradient-border rounded-[2rem] bg-black p-2",
         className
       )}
     >

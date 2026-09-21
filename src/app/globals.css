@@ -133,6 +133,41 @@
   }
 }
 
+/* Animatable angle for the rotating gradient border. */
+@property --angle {
+  syntax: "<angle>";
+  initial-value: 0deg;
+  inherits: false;
+}
+
+@keyframes gradient-pan {
+  to {
+    background-position: 300% 50%;
+  }
+}
+
+@keyframes spin-angle {
+  to {
+    --angle: 360deg;
+  }
+}
+
+@keyframes aurora-a {
+  to {
+    transform: translate3d(18vw, 8vh, 0) scale(1.15);
+  }
+}
+@keyframes aurora-b {
+  to {
+    transform: translate3d(-16vw, 10vh, 0) scale(0.9);
+  }
+}
+@keyframes aurora-c {
+  to {
+    transform: translate3d(8vw, -12vh, 0) scale(1.2);
+  }
+}
+
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
@@ -228,6 +263,10 @@
   --grid-line: rgba(15, 23, 42, 0.06);
   --network-rgb: 14, 116, 144;
   --network-ink-rgb: 13, 17, 23;
+  --grad-1: #0891b2;
+  --grad-2: #2563eb;
+  --grad-3: #7c3aed;
+  --aurora-opacity: 0.16;
 
   --chart-1: #0e7490;
   --chart-2: #3ba4c7;
@@ -276,6 +315,10 @@
   --grid-line: rgba(255, 255, 255, 0.04);
   --network-rgb: 59, 164, 199;
   --network-ink-rgb: 238, 241, 246;
+  --grad-1: #22d3ee;
+  --grad-2: #3b82f6;
+  --grad-3: #a78bfa;
+  --aurora-opacity: 0.2;
 
   --chart-1: #3ba4c7;
   --chart-2: #157a99;
@@ -383,6 +426,82 @@
   .hud-corners:hover::before,
   .hud-corners:hover::after {
     opacity: 1;
+  }
+
+  /* Flowing three-stop gradient text. */
+  .text-gradient-flow {
+    background-image: linear-gradient(90deg, var(--grad-1), var(--grad-2), var(--grad-3), var(--grad-1));
+    background-size: 300% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    animation: gradient-pan 9s linear infinite;
+  }
+
+  /* Solid-fill CTA with a slowly moving gradient. Darker stops than the
+   * accent so white text stays above 4.5:1 in both themes. */
+  .btn-gradient {
+    background-image: linear-gradient(90deg, #0e7490, #1d4ed8, #6d28d9, #0e7490);
+    background-size: 300% 100%;
+    color: #fff;
+    animation: gradient-pan 10s linear infinite;
+  }
+
+  /* 1px rotating conic border for showpiece elements. */
+  .gradient-border {
+    position: relative;
+    isolation: isolate;
+  }
+  .gradient-border::after {
+    content: "";
+    position: absolute;
+    inset: -1px;
+    padding: 1.5px;
+    border-radius: inherit;
+    background: conic-gradient(from var(--angle), var(--grad-1), var(--grad-2), var(--grad-3), transparent 70%, var(--grad-1));
+    -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    animation: spin-angle 6s linear infinite;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* Drifting coloured light behind the hero. */
+  .aurora {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+  }
+  .aurora span {
+    position: absolute;
+    width: 46vw;
+    height: 46vw;
+    max-width: 720px;
+    max-height: 720px;
+    border-radius: 9999px;
+    filter: blur(90px);
+    opacity: var(--aurora-opacity);
+    will-change: transform;
+  }
+  .aurora span:nth-child(1) {
+    top: -18%;
+    left: 4%;
+    background: var(--grad-1);
+    animation: aurora-a 22s ease-in-out infinite alternate;
+  }
+  .aurora span:nth-child(2) {
+    top: -8%;
+    right: 2%;
+    background: var(--grad-3);
+    animation: aurora-b 26s ease-in-out infinite alternate;
+  }
+  .aurora span:nth-child(3) {
+    top: 30%;
+    left: 34%;
+    background: var(--grad-2);
+    animation: aurora-c 30s ease-in-out infinite alternate;
   }
 
   .text-gradient {

@@ -252,6 +252,17 @@ function formatLagosTime(date: Date) {
   }).format(date);
 }
 
+/** Three blurred colour fields drifting slowly behind the hero. */
+export function Aurora() {
+  return (
+    <div aria-hidden className="aurora">
+      <span />
+      <span />
+      <span />
+    </div>
+  );
+}
+
 /** Corner HUD readouts and a slow scan line over the hero. */
 export function HeroHud() {
   const [time, setTime] = useState<string | null>(null);
@@ -265,7 +276,7 @@ export function HeroHud() {
 
   return (
     <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-      <div className="absolute inset-x-0 top-0 h-24 animate-[scan_9s_linear_infinite] bg-gradient-to-b from-transparent via-cerulean/10 to-transparent" />
+      <div className="absolute inset-x-0 top-0 h-24 animate-[scan_9s_linear_infinite] bg-gradient-to-b from-transparent via-cerulean/[0.04] to-transparent dark:via-cerulean/10" />
 
       <div className="absolute top-24 left-6 hidden font-mono text-[0.65rem] tracking-[0.2em] text-cerulean/80 uppercase md:block">
         <span className="mr-2 inline-block size-1.5 animate-pulse rounded-full bg-cerulean align-middle" />

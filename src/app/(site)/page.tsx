@@ -18,7 +18,7 @@ import {
   ServicesSection,
   Ticker,
 } from "@/components/site/home-sections";
-import { HeroBackdrop, HeroHud } from "@/components/site/hero-backdrop";
+import { Aurora, HeroBackdrop, HeroHud } from "@/components/site/hero-backdrop";
 import { BootLine } from "@/components/site/boot-line";
 import { TiltCard } from "@/components/site/tilt-card";
 import {
@@ -57,6 +57,7 @@ export default async function HomePage() {
         <Hero
           backdrop={
             <>
+              <Aurora />
               <HeroBackdrop />
               <HeroHud />
             </>
@@ -209,7 +210,7 @@ export default async function HomePage() {
       <section className="border-t border-border/60 py-24">
         <Container>
           <Reveal>
-            <div className="glass glow-cerulean relative flex flex-col items-center gap-6 overflow-hidden rounded-3xl px-8 py-16 text-center">
+            <div className="glass gradient-border relative flex flex-col items-center gap-6 overflow-hidden rounded-3xl px-8 py-16 text-center">
               <FloatingPaths position={1} />
               <h2 className="relative z-10 max-w-xl text-3xl font-semibold text-balance sm:text-4xl">
                 Ready to fix what&apos;s slowing your brand down?
@@ -217,7 +218,7 @@ export default async function HomePage() {
               <p className="relative z-10 max-w-md text-pretty text-muted-foreground">
                 Tell me about the workflow, content or sales pipeline you want handled.
               </p>
-              <Button asChild size="lg" className="glow-cerulean-hover relative z-10">
+              <Button asChild size="lg" className="btn-gradient glow-cerulean-hover relative z-10">
                 <Link href="/contact">
                   Start a conversation <ArrowRight className="size-4" />
                 </Link>
