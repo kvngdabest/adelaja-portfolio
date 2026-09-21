@@ -9,7 +9,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "About",
-  description: "About Adelaja Obanijesu Israel — AI Automation Engineer and full-stack developer based in Lagos, Nigeria.",
+  description: "About Adelaja Obanijesu Israel — front-end developer, AI video creator, and sales-operations support for product brands, based in Lagos, Nigeria.",
 };
 
 export default async function AboutPage() {
@@ -19,14 +19,14 @@ export default async function AboutPage() {
     <section className="py-24">
       <Container className="flex flex-col gap-16">
         <Reveal immediate>
-          <SectionHeading as="h1" eyebrow="About" title="The person behind the automations" />
+          <SectionHeading as="h1" eyebrow="About" title="Developer, creator, and problem-solver" />
         </Reveal>
 
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
           <Reveal immediate delay={0.08} className="order-2 lg:order-1">
             <div className="flex flex-col gap-5 text-pretty leading-relaxed text-muted-foreground">
               {(settings?.about_bio ??
-                "I'm Adelaja Obanijesu Israel, an AI automation developer, full-stack web developer, and entrepreneur based in Lagos, Nigeria."
+                "I'm Adelaja Obanijesu Israel, a front-end developer and content creator based in Lagos, Nigeria."
               )
                 .split("\n")
                 .filter(Boolean)
@@ -59,7 +59,7 @@ export default async function AboutPage() {
                 </div>
                 <div className="flex justify-between pb-2">
                   <dt className="text-muted-foreground">Focus</dt>
-                  <dd className="text-right">AI Automation & Full-Stack</dd>
+                  <dd className="text-right">Front-End · AI Video · Sales Ops</dd>
                 </div>
               </dl>
             </div>

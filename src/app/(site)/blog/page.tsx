@@ -12,7 +12,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Blog",
-  description: "Notes on AI automation, n8n workflows, and full-stack engineering from Adelaja Obanijesu Israel.",
+  description: "Notes on AI video, automation, and front-end development from Adelaja Obanijesu Israel.",
 };
 
 export default async function BlogPage() {
@@ -26,7 +26,7 @@ export default async function BlogPage() {
             as="h1"
             eyebrow="Writing"
             title="Blog"
-            description="Notes on automation, AI agents, and building full-stack products."
+            description="Notes on AI video, automation, and building for the web."
           />
         </Reveal>
 

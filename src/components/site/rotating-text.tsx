@@ -18,7 +18,10 @@ export function RotatingText({ items }: { items: string[] }) {
     // h-[2.6em] (not 1.3em) leaves room for the longest phrase to wrap to
     // two lines on narrow viewports — a fixed single-line height clips
     // wrapped text and centers it into the line above, causing overlap.
-    <span className="relative inline-flex h-[2.6em] items-center overflow-hidden align-bottom">
+    // flex (not inline-flex) so every phrase gets its own centered line; with
+    // inline-flex, phrases short enough to sit beside "builds" overflowed the
+    // container on desktop while longer ones wrapped, so layout varied per phrase.
+    <span className="relative flex h-[2.6em] items-center justify-center overflow-hidden">
       <AnimatePresence mode="wait">
         <motion.span
           key={items[index]}
@@ -26,7 +29,7 @@ export function RotatingText({ items }: { items: string[] }) {
           animate={{ y: 0, opacity: 1 }}
           exit={{ y: -16, opacity: 0 }}
           transition={{ duration: 0.35, ease: "easeOut" }}
-          className="text-cerulean"
+          className="text-center text-cerulean"
         >
           {items[index]}
         </motion.span>

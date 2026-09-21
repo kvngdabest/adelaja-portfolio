@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 
 const publicPages = [
   { path: "/", heading: /Adelaja Obanijesu Israel/i },
-  { path: "/about", heading: /person behind the automations/i },
+  { path: "/about", heading: /developer, creator, and problem-solver/i },
   { path: "/skills", heading: /skills & tools/i },
   { path: "/projects", heading: /projects/i },
   { path: "/blog", heading: /blog/i },

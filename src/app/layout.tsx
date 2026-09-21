@@ -29,17 +29,17 @@ const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000";
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Adelaja Obanijesu Israel — AI Automation & Full-Stack Developer",
+    default: "Adelaja Obanijesu Israel — Front-End Developer & AI Content Creator",
     template: "%s — Adelaja Obanijesu Israel",
   },
   description:
-    "AI Automation Engineer building n8n workflows, AI agents, and full-stack products with React/Next.js, Python, and Django. Based in Lagos, Nigeria.",
+    "Front-end developer who builds fast websites and creates AI video, design, and sales-automation systems for product brands. Based in Lagos, Nigeria.",
   openGraph: {
     type: "website",
     siteName: "Adelaja Obanijesu Israel",
-    title: "Adelaja Obanijesu Israel — AI Automation & Full-Stack Developer",
+    title: "Adelaja Obanijesu Israel — Front-End Developer & AI Content Creator",
     description:
-      "AI Automation Engineer building n8n workflows, AI agents, and full-stack products with React/Next.js, Python, and Django.",
+      "Front-end developer who builds fast websites and creates AI video, design, and sales-automation systems for product brands.",
   },
   twitter: {
     card: "summary_large_image",

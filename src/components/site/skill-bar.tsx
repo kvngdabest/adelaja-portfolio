@@ -1,7 +1,16 @@
 import type { Skill } from "@/types/database.types";
 
 export function SkillBar({ skill }: { skill: Skill }) {
-  const value = skill.proficiency ?? 0;
+  if (skill.proficiency == null) {
+    return (
+      <div className="flex items-center gap-2.5 text-sm font-medium">
+        <span aria-hidden className="size-1.5 rounded-full bg-cerulean" />
+        {skill.name}
+      </div>
+    );
+  }
+
+  const value = skill.proficiency;
   return (
     <div className="flex flex-col gap-1.5">
       <div className="flex items-baseline justify-between">

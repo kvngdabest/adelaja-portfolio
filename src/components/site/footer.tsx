@@ -30,7 +30,7 @@ export async function Footer() {
             Adelaja Obanijesu Israel
           </span>
           <p className="text-sm text-muted-foreground">
-            {settings?.location ?? "Lagos, Nigeria"} — AI Automation & Full-Stack Developer
+            {settings?.location ?? "Lagos, Nigeria"} — Front-End Developer & AI Content Creator
           </p>
         </div>
 

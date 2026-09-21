@@ -2,10 +2,10 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "Adelaja Obanijesu Israel — AI Automation & Full-Stack Developer",
+    name: "Adelaja Obanijesu Israel — Front-End Developer & AI Content Creator",
     short_name: "Adelaja",
     description:
-      "AI Automation Engineer building n8n workflows, AI agents, and full-stack products.",
+      "Front-end developer creating fast websites, AI video content, and sales automation for product brands.",
     start_url: "/",
     display: "standalone",
     background_color: "#0a1128",

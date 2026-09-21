@@ -11,6 +11,11 @@ import { Hero } from "@/components/ui/hero-1";
 import { FloatingPaths } from "@/components/ui/background-paths";
 import { IntegrationsGrid } from "@/components/site/integrations-grid";
 import {
+  BrandsSection,
+  ProcessSection,
+  ServicesSection,
+} from "@/components/site/home-sections";
+import {
   getFeaturedProjects,
   getPublishedTestimonials,
   getSiteSettings,
@@ -20,10 +25,10 @@ import {
 export const revalidate = 300;
 
 const rotatingRoles = [
+  "Fast Front-End Websites",
+  "AI Product Videos",
+  "Sales & CRM Systems",
   "n8n Workflow Automation",
-  "AI Agent Pipelines",
-  "Claude API Integrations",
-  "React & Next.js Products",
 ];
 
 export default async function HomePage() {
@@ -42,7 +47,7 @@ export default async function HomePage() {
       {/* Hero */}
       <div className="border-b border-border/60">
         <Hero
-          eyebrow="Available for select automation & full-stack projects"
+          eyebrow="Available for front-end, AI video & sales-automation projects"
           title={
             <>
               Adelaja Obanijesu Israel builds{" "}
@@ -51,7 +56,7 @@ export default async function HomePage() {
           }
           subtitle={
             settings?.hero_subheading ??
-            "AI Automation Engineer based in Lagos, Nigeria — designing n8n workflows and AI agent pipelines, and shipping them as full-stack products."
+            "Front-end developer and AI content creator based in Lagos, Nigeria — building fast websites, making AI video and design for product brands, and keeping their sales teams organised."
           }
           ctaLabel="View my work"
           ctaHref="/projects"
@@ -60,15 +65,18 @@ export default async function HomePage() {
         />
       </div>
 
+      <ServicesSection />
+      <BrandsSection />
+
       {/* Featured projects */}
       {featuredProjects.length > 0 ? (
-        <section className="py-24">
+        <section className="border-t border-border/60 py-24">
           <Container className="flex flex-col gap-12">
             <Reveal>
               <SectionHeading
                 eyebrow="Selected work"
                 title="Featured projects"
-                description="Automation systems and products I've built end to end — from workflow design to production deployment."
+                description="Real systems built for product brands — each one starts with a business pain point and ends with a working fix."
               />
             </Reveal>
             <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
@@ -90,6 +98,8 @@ export default async function HomePage() {
         </section>
       ) : null}
 
+      <ProcessSection />
+
       {/* Skills snapshot */}
       {categories.length > 0 ? (
         <section className="border-t border-border/60 py-24">
@@ -98,7 +108,7 @@ export default async function HomePage() {
               <SectionHeading
                 eyebrow="Toolbox"
                 title="What I work with"
-                description="Automation and AI on one side, full-stack engineering on the other."
+                description="Front-end craft, design and video on the creative side; sales operations and automation on the business side."
               />
             </Reveal>
             <div className="grid gap-6 sm:grid-cols-2">
@@ -172,10 +182,10 @@ export default async function HomePage() {
             <div className="glass glow-cerulean relative flex flex-col items-center gap-6 overflow-hidden rounded-3xl px-8 py-16 text-center">
               <FloatingPaths position={1} />
               <h2 className="relative z-10 max-w-xl text-3xl font-semibold text-balance sm:text-4xl">
-                Have a workflow that still eats your afternoon?
+                Ready to fix what&apos;s slowing your brand down?
               </h2>
               <p className="relative z-10 max-w-md text-pretty text-muted-foreground">
-                Let&apos;s talk about automating it.
+                Tell me about your website, content or sales pipeline.
               </p>
               <Button asChild size="lg" className="glow-cerulean-hover relative z-10">
                 <Link href="/contact">

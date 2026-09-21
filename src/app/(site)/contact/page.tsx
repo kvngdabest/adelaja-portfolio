@@ -10,7 +10,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Contact",
-  description: "Get in touch with Adelaja Obanijesu Israel about an automation, AI agent, or full-stack project.",
+  description: "Get in touch with Adelaja Obanijesu Israel about a website, AI video content, or sales and automation project.",
 };
 
 export default async function ContactPage() {
@@ -24,7 +24,7 @@ export default async function ContactPage() {
             as="h1"
             eyebrow="Contact"
             title="Let's build something"
-            description="Have a workflow to automate, an AI agent to design, or a product to build? Tell me about it."
+            description="Need a website, AI-made video content, a tidier sales pipeline, or a workflow automated? Tell me what's slowing you down."
           />
           <div className="flex flex-col gap-4 text-sm text-muted-foreground">
             {settings?.contact_email ? (

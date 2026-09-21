@@ -9,7 +9,7 @@ export const revalidate = 300;
 
 export const metadata: Metadata = {
   title: "Projects",
-  description: "Automation systems, AI agent pipelines, and full-stack products built by Adelaja Obanijesu Israel.",
+  description: "AI video pipelines, automation systems, and web products built by Adelaja Obanijesu Israel for product brands.",
 };
 
 export default async function ProjectsPage() {
@@ -23,7 +23,7 @@ export default async function ProjectsPage() {
             as="h1"
             eyebrow="Work"
             title="Projects"
-            description="A selection of automation systems, AI agent pipelines, and full-stack products I've shipped."
+            description="Real systems I've built for product brands — each one starts with a business pain point and ends with a working fix."
           />
         </Reveal>
 
