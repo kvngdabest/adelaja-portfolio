@@ -129,7 +129,9 @@ function IntegrationTile({
         transition={{ type: "spring", stiffness: 400, damping: 15 }}
         className={
           "group glow-cerulean-hover flex size-14 items-center justify-center rounded-2xl " +
-          "border border-border/60 bg-card/60 backdrop-blur-sm sm:size-16"
+          "border border-border/60 bg-card/60 backdrop-blur-sm sm:size-16 " +
+          "outline-none focus-visible:ring-2 focus-visible:ring-cerulean focus-visible:ring-offset-2 " +
+          "focus-visible:ring-offset-background"
         }
         style={
           reducedMotion
@@ -155,11 +157,16 @@ export function IntegrationsGrid() {
     <div
       data-integrations-grid
       onPointerMove={(e) => {
+        // Touch has no hover/leave concept — a tap would set a position that
+        // never resets, permanently scattering whichever icon was nearest.
+        // Restrict the repel effect to an actual mouse/pen pointer.
+        if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
         const rect = e.currentTarget.getBoundingClientRect();
         mouseX.set(e.clientX - rect.left);
         mouseY.set(e.clientY - rect.top);
       }}
-      onPointerLeave={() => {
+      onPointerLeave={(e) => {
+        if (e.pointerType !== "mouse" && e.pointerType !== "pen") return;
         mouseX.set(-9999);
         mouseY.set(-9999);
       }}
