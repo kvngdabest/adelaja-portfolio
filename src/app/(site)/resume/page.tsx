@@ -3,6 +3,7 @@ import { format } from "date-fns";
 import { Download, Mail, MapPin } from "lucide-react";
 import { Container } from "@/components/site/container";
 import { Reveal } from "@/components/site/reveal";
+import { ProfileCard } from "@/components/site/profile-card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import {
@@ -92,7 +93,8 @@ export default async function ResumePage() {
       <Container className="flex flex-col gap-14 print:max-w-none print:gap-8 print:text-black">
         {/* CV header */}
         <Reveal immediate>
-          <div className="flex flex-col gap-6 border-b border-border/60 pb-10 print:border-black/20">
+          <div className="grid items-center gap-12 border-b border-border/60 pb-12 lg:grid-cols-[minmax(0,1fr)_300px] print:block print:border-black/20">
+          <div className="flex flex-col gap-6">
             <div className="flex flex-wrap items-start justify-between gap-6">
               <div className="flex flex-col gap-2">
                 <span className="font-mono text-xs tracking-[0.2em] text-cerulean uppercase print:text-black">
@@ -136,6 +138,11 @@ export default async function ResumePage() {
                 {settings.resume_summary}
               </p>
             ) : null}
+          </div>
+          <ProfileCard
+            settings={settings}
+            className="mx-auto w-full max-w-[300px] print:hidden"
+          />
           </div>
         </Reveal>
 

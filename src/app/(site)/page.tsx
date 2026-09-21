@@ -21,6 +21,7 @@ import {
 import { Aurora, HeroBackdrop, HeroHud } from "@/components/site/hero-backdrop";
 import { BootLine } from "@/components/site/boot-line";
 import { TiltCard } from "@/components/site/tilt-card";
+import { DollyIn } from "@/components/site/dolly-in";
 import {
   getFeaturedProjects,
   getPublishedTestimonials,
@@ -82,9 +83,16 @@ export default async function HomePage() {
       </div>
 
       <Ticker />
-      <MeetSection />
-      <ServicesSection />
-      <BrandsSection />
+      <DollyIn>
+        <MeetSection />
+      </DollyIn>
+      <DollyIn>
+        <ServicesSection />
+      </DollyIn>
+      <DollyIn>
+        <BrandsSection />
+      </DollyIn>
+      <DollyIn>
       <PipelineSection
         video={
           videoProject?.video_url
@@ -95,9 +103,11 @@ export default async function HomePage() {
             : null
         }
       />
+      </DollyIn>
 
       {/* Featured projects */}
       {featuredProjects.length > 0 ? (
+        <DollyIn>
         <section className="border-t border-border/60 py-24">
           <Container className="flex flex-col gap-12">
             <Reveal>
@@ -126,19 +136,23 @@ export default async function HomePage() {
             </Reveal>
           </Container>
         </section>
+        </DollyIn>
       ) : null}
 
-      <ProcessSection />
+      <DollyIn>
+        <ProcessSection />
+      </DollyIn>
 
       {/* Skills snapshot */}
       {categories.length > 0 ? (
+        <DollyIn>
         <section className="border-t border-border/60 py-24">
           <Container className="flex flex-col gap-12">
             <Reveal>
               <SectionHeading
                 eyebrow="Toolbox"
                 title="What I work with"
-                description="Front-end craft, design and video on the creative side; sales operations and automation on the business side."
+                description="Automation, AI and CRM systems on the business side; video, design and front-end craft on the creative side."
               />
             </Reveal>
             <div className="grid gap-6 sm:grid-cols-2">
@@ -164,9 +178,11 @@ export default async function HomePage() {
             </div>
           </Container>
         </section>
+        </DollyIn>
       ) : null}
 
       {/* Integrations */}
+      <DollyIn>
       <section className="border-t border-border/60 py-24">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
@@ -181,9 +197,11 @@ export default async function HomePage() {
           </Reveal>
         </Container>
       </section>
+      </DollyIn>
 
       {/* Testimonials */}
       {testimonials.length > 0 ? (
+        <DollyIn>
         <section className="border-t border-border/60 py-24">
           <Container className="flex flex-col gap-12">
             <Reveal>
@@ -204,9 +222,11 @@ export default async function HomePage() {
             </div>
           </Container>
         </section>
+        </DollyIn>
       ) : null}
 
       {/* CTA */}
+      <DollyIn>
       <section className="border-t border-border/60 py-24">
         <Container>
           <Reveal>
@@ -227,6 +247,7 @@ export default async function HomePage() {
           </Reveal>
         </Container>
       </section>
+      </DollyIn>
     </>
   );
 }
