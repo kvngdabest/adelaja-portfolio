@@ -36,9 +36,11 @@ test.describe("homepage experience", () => {
     await expect(page.locator("video").first()).toBeAttached();
   });
 
-  test("about page shows the looping clip and the services banner", async ({ page }) => {
+  test("about page shows the intro video, headshot, email and services banner", async ({ page }) => {
     await page.goto("/about");
-    await expect(page.locator("video").first()).toBeAttached();
+    await expect(page.locator("video[src*='intro.mp4']")).toBeAttached();
+    await expect(page.getByRole("img", { name: "Adelaja Obanijesu Israel" })).toBeVisible();
+    await expect(page.getByRole("link", { name: "adelajaobanijesu@gmail.com" })).toBeVisible();
     await expect(page.getByRole("img", { name: /AI workflow automation services/i })).toBeVisible();
   });
 });

@@ -6,7 +6,8 @@ export const SITE_DESCRIPTION =
 const SUPABASE_PUBLIC = `${process.env.NEXT_PUBLIC_SUPABASE_URL ?? ""}/storage/v1/object/public`;
 
 export const ABOUT_MEDIA = {
-  video: `${SUPABASE_PUBLIC}/site/about/engineer-working.mp4`,
+  intro: `${SUPABASE_PUBLIC}/site/about/intro.mp4`,
+  introPoster: `${SUPABASE_PUBLIC}/site/about/intro-poster.jpg`,
   servicesBanner: `${SUPABASE_PUBLIC}/site/about/ai-automation-services.jpg`,
 };
 
@@ -25,7 +26,9 @@ export interface ProcessStep {
 export interface Brand {
   name: string;
   url: string | null;
+  instagram?: string;
   sells: string;
+  facts?: string[];
   did: string[];
   caseStudyHref?: string;
 }
@@ -150,21 +153,27 @@ export const BRANDS: Brand[] = [
   {
     name: "Savvy Sox",
     url: "https://www.savvysox.com",
+    instagram: "https://www.instagram.com/savvysox/",
     sells:
-      "Print-on-demand novelty socks designed and shipped from California, across pop-culture, gamer and holiday collections.",
+      "Black-owned California sock brand making full-colour, pop-culture “wearable art”, every pair designed, printed and shipped in-house.",
+    facts: ["Since 2013", "500+ retail stores", "Made in the USA"],
     did: ["AI product videos", "Content creation", "Sales team support"],
   },
   {
     name: "WERNS",
     url: "https://www.hi-werns.com",
+    instagram: "https://www.instagram.com/werns.official/",
     sells:
-      "German design brand for statement lamps, velvet cushions and home décor.",
+      "Award-winning German design brand behind the famous animal lamps, plus vases, wallpaper and décor. PETA-certified vegan.",
+    facts: ["Founded 2021", "300K+ on Instagram", "Ships EU-wide"],
     did: ["Content creation", "Sales team management"],
   },
   {
     name: "Seraman",
     url: "https://seraman.com",
-    sells: "E-commerce brand for outdoor, tactical and logistics gear.",
+    sells:
+      "Italian-run e-commerce brand for outdoor, tactical and logistics gear, from first-responder kits to field equipment.",
+    facts: ["E-commerce", "Tactical & outdoor"],
     did: [
       "AI product video pipeline",
       "Scene tracking & failure alerts",

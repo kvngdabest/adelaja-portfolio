@@ -12,6 +12,7 @@ import { FloatingPaths } from "@/components/ui/background-paths";
 import { IntegrationsGrid } from "@/components/site/integrations-grid";
 import {
   BrandsSection,
+  MeetSection,
   PipelineSection,
   ProcessSection,
   ServicesSection,
@@ -80,6 +81,7 @@ export default async function HomePage() {
       </div>
 
       <Ticker />
+      <MeetSection />
       <ServicesSection />
       <BrandsSection />
       <PipelineSection

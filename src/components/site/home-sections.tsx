@@ -16,6 +16,7 @@ import { SectionHeading } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
 import { TiltCard } from "@/components/site/tilt-card";
 import { SampleVideoFrame } from "@/components/site/sample-video-frame";
+import { IntroVideo } from "@/components/site/intro-video";
 import { ParallaxDecor } from "@/components/site/parallax-decor";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -159,6 +160,18 @@ export function BrandsSection() {
                     ) : null}
                   </div>
                   <p className="text-sm text-muted-foreground">{brand.sells}</p>
+                  {brand.facts?.length ? (
+                    <div className="flex flex-wrap gap-1.5">
+                      {brand.facts.map((fact) => (
+                        <span
+                          key={fact}
+                          className="rounded-full border border-border/60 px-2 py-0.5 font-mono text-[0.65rem] text-muted-foreground"
+                        >
+                          {fact}
+                        </span>
+                      ))}
+                    </div>
+                  ) : null}
                   <div className="mt-auto flex flex-col gap-2 pt-2">
                     <span className="font-mono text-[0.7rem] tracking-wide text-cerulean uppercase">
                       What I did
@@ -173,14 +186,26 @@ export function BrandsSection() {
                         </li>
                       ))}
                     </ul>
-                    {brand.caseStudyHref ? (
-                      <Link
-                        href={brand.caseStudyHref}
-                        className="inline-flex items-center gap-1 pt-2 text-xs font-medium text-cerulean hover:underline"
-                      >
-                        See the case studies <ArrowRight className="size-3" />
-                      </Link>
-                    ) : null}
+                    <div className="flex flex-wrap gap-x-4 gap-y-1 pt-2">
+                      {brand.caseStudyHref ? (
+                        <Link
+                          href={brand.caseStudyHref}
+                          className="inline-flex items-center gap-1 text-xs font-medium text-cerulean hover:underline"
+                        >
+                          See the case studies <ArrowRight className="size-3" />
+                        </Link>
+                      ) : null}
+                      {brand.instagram ? (
+                        <a
+                          href={brand.instagram}
+                          target="_blank"
+                          rel="noreferrer noopener"
+                          className="inline-flex items-center gap-1 text-xs font-medium text-muted-foreground transition-colors hover:text-cerulean"
+                        >
+                          Instagram <ArrowUpRight className="size-3" />
+                        </a>
+                      ) : null}
+                    </div>
                   </div>
                 </div>
               </TiltCard>
@@ -291,6 +316,36 @@ export function PipelineSection({
             </Reveal>
           </div>
         ) : null}
+      </Container>
+    </section>
+  );
+}
+
+export function MeetSection() {
+  return (
+    <section className="relative overflow-hidden border-t border-border/60 py-24">
+      <ParallaxDecor side="right" />
+      <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
+        <Reveal className="flex flex-col gap-5">
+          <SectionHeading
+            eyebrow="Meet me"
+            title="The person behind the workflows"
+            description="In 50 seconds: how I find where the friction is in a business, and how I turn it into a system that runs on its own."
+          />
+          <div className="flex flex-wrap gap-3">
+            <Button asChild className="glow-cerulean-hover">
+              <Link href="/contact">
+                Work with me <ArrowRight className="size-4" />
+              </Link>
+            </Button>
+            <Button asChild variant="outline">
+              <Link href="/about">More about me</Link>
+            </Button>
+          </div>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <IntroVideo />
+        </Reveal>
       </Container>
     </section>
   );

@@ -2,9 +2,8 @@ import Image from "next/image";
 import Link from "next/link";
 import type { Metadata } from "next";
 import { ArrowRight } from "lucide-react";
-import { cn } from "cn";
 import { Container } from "@/components/site/container";
-import { AmbientVideo } from "@/components/site/ambient-video";
+import { IntroVideo } from "@/components/site/intro-video";
 import { Button } from "@/components/ui/button";
 import { ABOUT_MEDIA } from "@/lib/content/positioning";
 import { SectionHeading } from "@/components/site/section-heading";
@@ -28,6 +27,10 @@ export default async function AboutPage() {
           <SectionHeading as="h1" eyebrow="About" title="Developer, creator, and problem-solver" />
         </Reveal>
 
+        <Reveal immediate delay={0.04}>
+          <IntroVideo />
+        </Reveal>
+
         <div className="grid gap-12 lg:grid-cols-[minmax(0,1fr)_320px]">
           <Reveal immediate delay={0.08} className="order-2 lg:order-1">
             <div className="flex flex-col gap-5 text-pretty leading-relaxed text-muted-foreground">
@@ -44,32 +47,21 @@ export default async function AboutPage() {
 
           <Reveal immediate delay={0.16} className="order-1 lg:order-2">
             <div className="glass flex flex-col gap-4 rounded-2xl p-6">
-              <div
-                className={cn(
-                  "relative w-full overflow-hidden rounded-xl bg-muted",
-                  settings?.avatar_url ? "aspect-square" : "aspect-video"
-                )}
-              >
+              <div className="relative aspect-square w-full overflow-hidden rounded-xl bg-muted">
                 {settings?.avatar_url ? (
                   <Image
                     src={settings.avatar_url}
                     alt="Adelaja Obanijesu Israel"
                     fill
+                    sizes="320px"
                     className="object-cover"
                   />
                 ) : (
-                  <AmbientVideo
-                    src={ABOUT_MEDIA.video}
-                    label="AI-generated clip of an engineer working at a computer"
-                    className="h-full w-full object-cover"
-                  />
+                  <div className="bg-mesh flex h-full w-full items-center justify-center font-heading text-2xl text-muted-foreground">
+                    AOI
+                  </div>
                 )}
               </div>
-              {!settings?.avatar_url ? (
-                <p className="-mt-1 font-mono text-[0.65rem] tracking-wide text-muted-foreground uppercase">
-                  AI-generated clip
-                </p>
-              ) : null}
               <dl className="grid grid-cols-1 gap-3 text-sm">
                 <div className="flex justify-between border-b border-border/60 pb-2">
                   <dt className="text-muted-foreground">Based in</dt>
@@ -77,8 +69,21 @@ export default async function AboutPage() {
                 </div>
                 <div className="flex justify-between pb-2">
                   <dt className="text-muted-foreground">Focus</dt>
-                  <dd className="text-right">Front-End · AI Video · Sales Ops</dd>
+                  <dd className="text-right">AI Automation · Front-End · AI Video</dd>
                 </div>
+                {settings?.contact_email ? (
+                  <div className="flex justify-between gap-3 border-t border-border/60 pt-2">
+                    <dt className="text-muted-foreground">Email</dt>
+                    <dd className="truncate">
+                      <a
+                        href={`mailto:${settings.contact_email}`}
+                        className="text-cerulean hover:underline"
+                      >
+                        {settings.contact_email}
+                      </a>
+                    </dd>
+                  </div>
+                ) : null}
               </dl>
             </div>
           </Reveal>
