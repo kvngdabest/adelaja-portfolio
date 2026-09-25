@@ -351,6 +351,56 @@ export function MeetSection() {
   );
 }
 
+/**
+ * The owner's own n8n system — a separate project from the client work in
+ * PipelineSection, with its own video.
+ */
+export function SystemSection({
+  video,
+}: {
+  video: { src: string; href: string } | null;
+}) {
+  return (
+    <section className="relative overflow-hidden border-t border-border/60 py-24">
+      <ParallaxDecor side="left" />
+      <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
+        <Reveal className="flex flex-col gap-5">
+          <SectionHeading
+            eyebrow="Built for myself"
+            title="An AI operations system I run my own business on"
+            description="A set of n8n workflows that find contract work, brief me on my market every morning, score inbound leads and publish to LinkedIn — all driven from one Telegram chat with a Claude agent, and every failure reports itself."
+          />
+          <p className="max-w-lg text-pretty text-muted-foreground">
+            The video was rendered from the real workflow files, then uploaded, posted
+            and commented on LinkedIn by the system itself. No manual upload.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            {video ? (
+              <Button asChild className="glow-cerulean-hover">
+                <Link href={video.href}>
+                  Read the case study <ArrowRight className="size-4" />
+                </Link>
+              </Button>
+            ) : null}
+            <Button asChild variant="outline">
+              <Link href="/contact">Build a system like this</Link>
+            </Button>
+          </div>
+        </Reveal>
+        {video ? (
+          <Reveal delay={0.1}>
+            <SampleVideoFrame
+              src={video.src}
+              label="LinkedIn video produced and published by the AI operations system"
+              className="mx-auto w-[240px] sm:w-[270px]"
+            />
+          </Reveal>
+        ) : null}
+      </Container>
+    </section>
+  );
+}
+
 export function ProcessSection() {
   return (
     <section className="relative overflow-hidden border-t border-border/60 py-24">

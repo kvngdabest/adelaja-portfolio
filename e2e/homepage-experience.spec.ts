@@ -24,11 +24,23 @@ test.describe("homepage experience", () => {
     await context.close();
   });
 
-  test("shows the real client reviews and the pipeline sample video", async ({ page }) => {
+  test("shows the real client reviews", async ({ page }) => {
     await page.goto("/");
     await expect(page.getByText(/Excellent work, fast and super professional/i)).toBeVisible();
     await expect(page.getByText(/results were absolutely extraordinary/i)).toBeVisible();
-    await expect(page.locator("video[src*='final-output']").first()).toBeAttached();
+  });
+
+  test("each showcase section plays its own project's video", async ({ page }) => {
+    await page.goto("/");
+    // Seraman client work and the owner's own n8n system are separate projects;
+    // neither section may show the other's video.
+    const seraman = page.locator("section", { hasText: "One product image in" }).first();
+    await expect(
+      seraman.locator("video[src*='seraman-ai-product-video-pipeline']")
+    ).toBeAttached();
+
+    const system = page.locator("section", { hasText: "AI operations system I run" }).first();
+    await expect(system.locator("video[src*='oba-ai-operations-system']")).toBeAttached();
   });
 
   test("project page for the Seraman pipeline includes its sample video", async ({ page }) => {

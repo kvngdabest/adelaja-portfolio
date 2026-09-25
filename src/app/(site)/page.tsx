@@ -16,6 +16,7 @@ import {
   PipelineSection,
   ProcessSection,
   ServicesSection,
+  SystemSection,
   Ticker,
 } from "@/components/site/home-sections";
 import { Aurora, HeroBackdrop, HeroHud } from "@/components/site/hero-backdrop";
@@ -49,7 +50,15 @@ export default async function HomePage() {
     ]);
 
   const categories = Object.keys(skillsByCategory);
-  const videoProject = featuredProjects.find((p) => p.video_url);
+  // Pinned by slug: each showcase section owns its own project's video, so
+  // reordering the featured list can never swap one project's video into
+  // another project's section.
+  const seramanPipeline = featuredProjects.find(
+    (p) => p.slug === "seraman-ai-product-video-pipeline"
+  );
+  const opsSystem = featuredProjects.find((p) => p.slug === "oba-ai-operations-system");
+  const toVideo = (p?: (typeof featuredProjects)[number]) =>
+    p?.video_url ? { src: p.video_url, href: `/projects/${p.slug}` } : null;
 
   return (
     <>
@@ -93,16 +102,10 @@ export default async function HomePage() {
         <BrandsSection />
       </DollyIn>
       <DollyIn>
-      <PipelineSection
-        video={
-          videoProject?.video_url
-            ? {
-                src: videoProject.video_url,
-                href: `/projects/${videoProject.slug}`,
-              }
-            : null
-        }
-      />
+      <PipelineSection video={toVideo(seramanPipeline)} />
+      </DollyIn>
+      <DollyIn>
+        <SystemSection video={toVideo(opsSystem)} />
       </DollyIn>
 
       {/* Featured projects */}
