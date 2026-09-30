@@ -9,6 +9,7 @@ import {
   useReducedMotion,
   type MotionValue,
 } from "framer-motion";
+import { useLiteMotion } from "@/components/site/lite-motion-provider";
 import {
   SiN8n,
   SiMake,
@@ -211,6 +212,11 @@ function ToolTile({
 
 export function IntegrationsGrid() {
   const shouldReduceMotion = useReducedMotion();
+  const lite = useLiteMotion();
+  // 35 tiles each running their own infinite CSS float, regardless of
+  // scroll position, measured as a real cost on a throttled/low-power
+  // device — same bar as prefers-reduced-motion, not just an OS opt-out.
+  const skipMotion = !!shouldReduceMotion || lite;
   const mouseX = useMotionValue(-9999);
   const mouseY = useMotionValue(-9999);
 
@@ -238,7 +244,7 @@ export function IntegrationsGrid() {
           index={i}
           mouseX={mouseX}
           mouseY={mouseY}
-          reducedMotion={!!shouldReduceMotion}
+          reducedMotion={skipMotion}
         />
       ))}
     </div>

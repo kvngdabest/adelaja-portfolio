@@ -22,6 +22,17 @@ export default function Scene3D() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const small = window.innerWidth < 768;
 
+    // A continuous WebGL scene costs more than it's worth on a phone or a
+    // low-powered machine: measured ~5fps while scrolling on a throttled
+    // mid-range phone. Those visitors keep the CSS aurora and hero canvas.
+    const nav = navigator as Navigator & { deviceMemory?: number };
+    const weakDevice =
+      small ||
+      (nav.hardwareConcurrency ?? 8) <= 4 ||
+      (nav.deviceMemory ?? 8) <= 4 ||
+      window.matchMedia("(pointer: coarse)").matches;
+    if (weakDevice) return;
+
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !small, powerPreference: "low-power" });

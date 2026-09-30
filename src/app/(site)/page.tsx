@@ -111,7 +111,7 @@ export default async function HomePage() {
       {/* Featured projects */}
       {featuredProjects.length > 0 ? (
         <DollyIn>
-        <section className="border-t border-border/60 py-24">
+        <section className="section-cv border-t border-border/60 py-24">
           <Container className="flex flex-col gap-12">
             <Reveal>
               <SectionHeading
@@ -149,7 +149,7 @@ export default async function HomePage() {
       {/* Skills snapshot */}
       {categories.length > 0 ? (
         <DollyIn>
-        <section className="border-t border-border/60 py-24">
+        <section className="section-cv border-t border-border/60 py-24">
           <Container className="flex flex-col gap-12">
             <Reveal>
               <SectionHeading
@@ -186,7 +186,7 @@ export default async function HomePage() {
 
       {/* Integrations */}
       <DollyIn>
-      <section className="border-t border-border/60 py-24">
+      <section className="section-cv border-t border-border/60 py-24">
         <Container className="grid items-center gap-12 lg:grid-cols-2">
           <Reveal>
             <SectionHeading
@@ -205,7 +205,7 @@ export default async function HomePage() {
       {/* Testimonials */}
       {testimonials.length > 0 ? (
         <DollyIn>
-        <section className="border-t border-border/60 py-24">
+        <section className="section-cv border-t border-border/60 py-24">
           <Container className="flex flex-col gap-12">
             <Reveal>
               <SectionHeading
@@ -230,7 +230,7 @@ export default async function HomePage() {
 
       {/* CTA */}
       <DollyIn>
-      <section className="border-t border-border/60 py-24">
+      <section className="section-cv border-t border-border/60 py-24">
         <Container>
           <Reveal>
             <div className="glass gradient-border relative flex flex-col items-center gap-6 overflow-hidden rounded-3xl px-8 py-16 text-center">

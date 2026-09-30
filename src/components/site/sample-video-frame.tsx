@@ -24,7 +24,7 @@ export function SampleVideoFrame({
         poster={src.replace(/\.mp4$/i, "-poster.jpg")}
         controls
         playsInline
-        preload="metadata"
+        preload="none"
         aria-label={label}
         className="aspect-[9/16] w-full rounded-[1.5rem] bg-black object-cover"
       />

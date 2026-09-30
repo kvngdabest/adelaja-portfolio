@@ -67,7 +67,7 @@ export function Ticker() {
 
 export function ServicesSection() {
   return (
-    <section className="relative overflow-hidden py-24">
+    <section className="section-cv relative overflow-hidden py-24">
       <ParallaxDecor side="right" />
       <Container className="relative z-10 flex flex-col gap-12">
         <Reveal>
@@ -130,7 +130,7 @@ export function ServicesSection() {
 
 export function BrandsSection() {
   return (
-    <section className="relative overflow-hidden border-t border-border/60 py-24">
+    <section className="section-cv relative overflow-hidden border-t border-border/60 py-24">
       <ParallaxDecor side="left" />
       <Container className="relative z-10 flex flex-col gap-12">
         <Reveal>
@@ -225,7 +225,7 @@ export function PipelineSection({
   const last = PIPELINE_STEPS.length - 1;
 
   return (
-    <section className="relative overflow-hidden border-t border-border/60 py-24">
+    <section className="section-cv relative overflow-hidden border-t border-border/60 py-24">
       <ParallaxDecor side="right" />
       <Container className="relative z-10 flex flex-col gap-12">
         <Reveal>
@@ -323,7 +323,7 @@ export function PipelineSection({
 
 export function MeetSection() {
   return (
-    <section className="relative overflow-hidden border-t border-border/60 py-24">
+    <section className="section-cv relative overflow-hidden border-t border-border/60 py-24">
       <ParallaxDecor side="right" />
       <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_1.35fr] lg:gap-16">
         <Reveal className="flex flex-col gap-5">
@@ -361,7 +361,7 @@ export function SystemSection({
   video: { src: string; href: string } | null;
 }) {
   return (
-    <section className="relative overflow-hidden border-t border-border/60 py-24">
+    <section className="section-cv relative overflow-hidden border-t border-border/60 py-24">
       <ParallaxDecor side="left" />
       <Container className="relative z-10 grid items-center gap-10 lg:grid-cols-[1fr_auto] lg:gap-16">
         <Reveal className="flex flex-col gap-5">
@@ -403,7 +403,7 @@ export function SystemSection({
 
 export function ProcessSection() {
   return (
-    <section className="relative overflow-hidden border-t border-border/60 py-24">
+    <section className="section-cv relative overflow-hidden border-t border-border/60 py-24">
       <ParallaxDecor side="left" />
       <Container className="relative z-10 flex flex-col gap-12">
         <Reveal>

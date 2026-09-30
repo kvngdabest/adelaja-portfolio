@@ -15,7 +15,7 @@ export function IntroVideo({ className }: { className?: string }) {
         poster={ABOUT_MEDIA.introPoster}
         controls
         playsInline
-        preload="metadata"
+        preload="none"
         aria-label="Adelaja Obanijesu Israel introduces how he approaches AI automation"
         className="aspect-video w-full rounded-[14px] bg-black object-cover"
       />
