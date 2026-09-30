@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Briefcase } from "lucide-react";
+import { Briefcase, Lock } from "lucide-react";
 import { Container } from "@/components/site/container";
 import { getSiteSettings } from "@/lib/data/public";
 import { GithubIcon, LinkedinIcon, XIcon } from "@/components/site/brand-icons";
@@ -63,8 +63,16 @@ export async function Footer() {
           </div>
         ) : null}
       </Container>
-      <Container className="pb-8 text-xs text-muted-foreground">
-        © {new Date().getFullYear()} Adelaja Obanijesu Israel. All rights reserved.
+      <Container className="flex items-center justify-between gap-4 pb-8 text-xs text-muted-foreground">
+        <span>© {new Date().getFullYear()} Adelaja Obanijesu Israel. All rights reserved.</span>
+        <Link
+          href="/login"
+          aria-label="Admin sign in"
+          title="Admin sign in"
+          className="text-muted-foreground/50 transition-colors hover:text-cerulean"
+        >
+          <Lock className="size-3.5" />
+        </Link>
       </Container>
     </footer>
   );

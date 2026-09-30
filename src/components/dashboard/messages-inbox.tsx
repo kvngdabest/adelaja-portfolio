@@ -3,11 +3,12 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { formatDistanceToNow } from "date-fns";
-import { Archive, ArchiveRestore, Mail, MailOpen } from "lucide-react";
+import { Archive, ArchiveRestore, Mail, MailOpen, Search } from "lucide-react";
 import { toast } from "sonner";
 import { cn } from "cn";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import {
   Sheet,
   SheetContent,
@@ -24,6 +25,21 @@ export function MessagesInbox({ messages }: { messages: Message[] }) {
   const router = useRouter();
   const [active, setActive] = useState<Message | null>(null);
   const [pending, startTransition] = useTransition();
+  const [query, setQuery] = useState("");
+  const [unreadOnly, setUnreadOnly] = useState(false);
+
+  const filtered = messages.filter((m) => {
+    if (unreadOnly && m.is_read) return false;
+    if (!query.trim()) return true;
+    const q = query.toLowerCase();
+    return (
+      m.name.toLowerCase().includes(q) ||
+      m.email.toLowerCase().includes(q) ||
+      (m.subject ?? "").toLowerCase().includes(q) ||
+      m.message.toLowerCase().includes(q)
+    );
+  });
+  const unreadCount = messages.filter((m) => !m.is_read).length;
 
   function openMessage(message: Message) {
     setActive(message);
@@ -50,8 +66,31 @@ export function MessagesInbox({ messages }: { messages: Message[] }) {
 
   return (
     <>
+      <div className="mb-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <div className="relative w-full sm:max-w-xs">
+          <Search className="pointer-events-none absolute top-1/2 left-3 size-3.5 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            value={query}
+            onChange={(e) => setQuery(e.target.value)}
+            placeholder="Search name, email, message…"
+            className="pl-8"
+          />
+        </div>
+        {unreadCount > 0 ? (
+          <Button
+            type="button"
+            size="sm"
+            variant={unreadOnly ? "default" : "outline"}
+            onClick={() => setUnreadOnly((v) => !v)}
+          >
+            <Mail className="size-3.5" />
+            {unreadOnly ? "Showing unread" : `Unread (${unreadCount})`}
+          </Button>
+        ) : null}
+      </div>
+
       <div className="glass flex flex-col divide-y divide-border/60 overflow-hidden rounded-2xl">
-        {messages.map((message) => (
+        {filtered.map((message) => (
           <button
             key={message.id}
             onClick={() => openMessage(message)}
@@ -87,8 +126,12 @@ export function MessagesInbox({ messages }: { messages: Message[] }) {
             </span>
           </button>
         ))}
-        {messages.length === 0 ? (
-          <p className="px-5 py-10 text-center text-muted-foreground">No messages here.</p>
+        {filtered.length === 0 ? (
+          <p className="px-5 py-10 text-center text-muted-foreground">
+            {messages.length === 0
+              ? "No messages here."
+              : "No messages match your search."}
+          </p>
         ) : null}
       </div>
 
