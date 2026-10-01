@@ -9,8 +9,14 @@ import * as THREE from "three";
  * - a wireframe "AI core" (icosahedron + orbit rings),
  * - the camera dollies forward through the field as the page scrolls,
  *   and drifts toward the pointer for parallax.
- * One WebGL context for the whole page; paused when hidden or off-tab;
+ * One WebGL context for the whole page; paused when the tab is hidden;
  * a single still frame under prefers-reduced-motion.
+ *
+ * Quality adapts by measuring this device's real frame rate, not by
+ * guessing from CPU cores or RAM — that guess switched the whole scene off
+ * on capable 4-core laptops. A device that can't hold ~24fps steps down
+ * resolution and particle count; if even the lowest step can't keep up,
+ * the scene freezes on its current frame so the visual stays on screen.
  */
 export default function Scene3D() {
   const mountRef = useRef<HTMLDivElement>(null);
@@ -22,24 +28,14 @@ export default function Scene3D() {
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     const small = window.innerWidth < 768;
 
-    // A continuous WebGL scene costs more than it's worth on a phone or a
-    // low-powered machine: measured ~5fps while scrolling on a throttled
-    // mid-range phone. Those visitors keep the CSS aurora and hero canvas.
-    const nav = navigator as Navigator & { deviceMemory?: number };
-    const weakDevice =
-      small ||
-      (nav.hardwareConcurrency ?? 8) <= 4 ||
-      (nav.deviceMemory ?? 8) <= 4 ||
-      window.matchMedia("(pointer: coarse)").matches;
-    if (weakDevice) return;
-
     let renderer: THREE.WebGLRenderer;
     try {
       renderer = new THREE.WebGLRenderer({ alpha: true, antialias: !small, powerPreference: "low-power" });
     } catch {
       return; // No WebGL: the page still works, just without the backdrop.
     }
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, small ? 1.25 : 1.6));
+    const baseDpr = Math.min(window.devicePixelRatio || 1, small ? 1.25 : 1.6);
+    renderer.setPixelRatio(baseDpr);
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.domElement.style.width = "100%";
     renderer.domElement.style.height = "100%";
@@ -177,7 +173,64 @@ export default function Scene3D() {
       core.visible = f > 0.01;
       for (const { mat, base } of coreMats) mat.opacity = base * f;
     }
+    // Fully visible at the top of the page; gone before the camera reaches it.
+    function updateCoreFade() {
+      const gap = camera.position.z - core.position.z;
+      setCoreFade(coreStrength * Math.min(1, Math.max(0, (gap - 2.5) / 3.5)));
+    }
     applyTheme();
+
+    // ---- quality governor ---------------------------------------------------
+    const TIERS = [
+      { dpr: baseDpr, share: 1 },
+      { dpr: Math.min(baseDpr, 1), share: 0.6 },
+      { dpr: Math.min(baseDpr, 0.75), share: 0.35 },
+    ];
+    let tier = 0;
+    let frozen = false;
+    let windowStart = 0;
+    let windowFrames = 0;
+    let slowWindows = 0;
+    // Load, hydration and font swaps make every device look slow at first.
+    let measureFrom = performance.now() + 2500;
+    mount.dataset.quality = reduced ? "still" : "0";
+
+    function resetMeasurement() {
+      windowStart = 0;
+      slowWindows = 0;
+      measureFrom = performance.now() + 1000;
+    }
+
+    function govern(now: number) {
+      if (now < measureFrom) return;
+      if (!windowStart) {
+        windowStart = now;
+        windowFrames = 0;
+        return;
+      }
+      windowFrames++;
+      const elapsed = now - windowStart;
+      if (elapsed < 2000) return;
+      const fps = (windowFrames * 1000) / elapsed;
+      windowStart = now;
+      windowFrames = 0;
+      // Two slow windows in a row (~4s) before acting, so one scroll burst
+      // or GC pause never downgrades a capable device.
+      slowWindows = fps < 24 ? slowWindows + 1 : 0;
+      if (slowWindows < 2) return;
+      slowWindows = 0;
+      if (tier < TIERS.length - 1) {
+        tier++;
+        renderer.setPixelRatio(TIERS[tier].dpr);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        fieldGeo.setDrawRange(0, Math.floor(COUNT * TIERS[tier].share));
+        mount!.dataset.quality = String(tier);
+      } else {
+        // The frame just rendered stays on screen; the loop stops.
+        frozen = true;
+        mount!.dataset.quality = "frozen";
+      }
+    }
 
     // ---- interaction --------------------------------------------------------
     const pointer = { x: 0, y: 0 };
@@ -191,22 +244,27 @@ export default function Scene3D() {
       const max = document.documentElement.scrollHeight - window.innerHeight;
       scrollProgress = max > 0 ? window.scrollY / max : 0;
     }
+    // Not animating (reduced motion, or frozen by the governor): redraw the
+    // still frame whenever something invalidates it.
+    function renderStill() {
+      updateCoreFade();
+      renderer.render(scene, camera);
+    }
     function onResize() {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
       renderer.setSize(window.innerWidth, window.innerHeight);
-      if (reduced) renderer.render(scene, camera);
+      if (reduced || frozen) renderStill();
     }
     const themeObserver = new MutationObserver(() => {
       readTheme();
       applyTheme();
-      if (reduced) {
-        setCoreFade(coreStrength);
-        renderer.render(scene, camera);
-      }
+      if (reduced || frozen) renderStill();
     });
     themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ["class"] });
     window.addEventListener("resize", onResize);
+    // A backgrounded tab gets no frames; don't count that gap as slowness.
+    document.addEventListener("visibilitychange", resetMeasurement);
     if (!reduced) {
       window.addEventListener("pointermove", onPointer, { passive: true });
       window.addEventListener("scroll", onScroll, { passive: true });
@@ -216,7 +274,8 @@ export default function Scene3D() {
     // ---- loop ---------------------------------------------------------------
     const clock = new THREE.Clock();
     let raf = 0;
-    function frame() {
+    function frame(now: number) {
+      if (frozen) return;
       raf = requestAnimationFrame(frame);
       if (document.hidden) return;
       const t = clock.getElapsedTime();
@@ -234,23 +293,22 @@ export default function Scene3D() {
       rings[0].rotation.z = t * 0.3;
       rings[1].rotation.z = -t * 0.22;
       core.scale.setScalar((small ? 0.7 : 1) * (1 + Math.sin(t * 0.8) * 0.025));
-      // Fully visible at the top of the page; gone before the camera reaches it.
-      const gap = camera.position.z - core.position.z;
-      setCoreFade(coreStrength * Math.min(1, Math.max(0, (gap - 2.5) / 3.5)));
+      updateCoreFade();
 
       field.rotation.z = t * 0.01;
       renderer.render(scene, camera);
+      govern(now);
     }
     if (reduced) {
-      setCoreFade(coreStrength);
-      renderer.render(scene, camera);
+      renderStill();
     } else {
-      frame();
+      raf = requestAnimationFrame(frame);
     }
 
     return () => {
       cancelAnimationFrame(raf);
       themeObserver.disconnect();
+      document.removeEventListener("visibilitychange", resetMeasurement);
       window.removeEventListener("resize", onResize);
       window.removeEventListener("pointermove", onPointer);
       window.removeEventListener("scroll", onScroll);

@@ -2,7 +2,6 @@
 
 import { useRef, type ReactNode } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
-import { useLiteMotion } from "@/components/site/lite-motion-provider";
 
 /**
  * Scroll-linked "dolly in": the block starts slightly smaller, lower and
@@ -10,15 +9,13 @@ import { useLiteMotion } from "@/components/site/lite-motion-provider";
  * viewport. Never fully hidden, so content is readable at any scroll point.
  *
  * Split into two components rather than one that computes useScroll and
- * then discards it: the hook keeps a live scroll listener + rAF sync
- * running for as long as it's mounted, whether or not its value is used
- * in render. ~10 instances of that idling on the homepage measurably hurt
- * scroll FPS on a throttled device, so lite/reduced devices never mount it.
+ * then discards it: the hook keeps a live scroll listener running for as
+ * long as it's mounted, whether or not its value is used in render, so
+ * reduced-motion visitors never mount it.
  */
 export function DollyIn({ children }: { children: ReactNode }) {
   const reduced = useReducedMotion();
-  const lite = useLiteMotion();
-  if (reduced || lite) return <div>{children}</div>;
+  if (reduced) return <div>{children}</div>;
   return <AnimatedDollyIn>{children}</AnimatedDollyIn>;
 }
 

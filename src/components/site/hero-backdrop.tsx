@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { useLiteMotion } from "@/components/site/lite-motion-provider";
 
 interface Node {
   x: number;
@@ -34,15 +33,6 @@ export function HeroBackdrop() {
     const canvas = canvasRef.current;
     const ctx = canvas?.getContext("2d");
     if (!wrap || !canvas || !ctx) return;
-
-    const nav = navigator as Navigator & { deviceMemory?: number };
-    const lite =
-      window.innerWidth < 768 ||
-      (nav.hardwareConcurrency ?? 8) <= 4 ||
-      (nav.deviceMemory ?? 8) <= 4;
-    // On phones the CSS aurora carries the hero; this canvas would just burn
-    // frames behind it.
-    if (lite) return;
 
     const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
     let w = 0;
@@ -264,13 +254,8 @@ function formatLagosTime(date: Date) {
 
 /** Three blurred colour fields drifting slowly behind the hero. */
 export function Aurora() {
-  // Three blur(90px) layers animating transform is the heaviest thing in
-  // the hero — measured as the main cause of low scroll FPS on a
-  // throttled/software-rendered phone. Lite devices get the same colour
-  // wash, just held still instead of drifting.
-  const lite = useLiteMotion();
   return (
-    <div aria-hidden className="aurora" style={lite ? { ["--aurora-play" as string]: "paused" } : undefined}>
+    <div aria-hidden className="aurora">
       <span />
       <span />
       <span />

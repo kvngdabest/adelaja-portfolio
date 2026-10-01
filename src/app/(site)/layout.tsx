@@ -2,7 +2,6 @@ import { Navbar } from "@/components/site/navbar";
 import { Footer } from "@/components/site/footer";
 import { ScrollProgress } from "@/components/site/scroll-progress";
 import { SceneBackdrop } from "@/components/site/scene-backdrop";
-import { LiteMotionProvider } from "@/components/site/lite-motion-provider";
 import { getSiteSettings } from "@/lib/data/public";
 
 export default async function SiteLayout({
@@ -28,7 +27,7 @@ export default async function SiteLayout({
   }
 
   return (
-    <LiteMotionProvider>
+    <>
       <a
         href="#main-content"
         className="fixed top-2 left-2 z-[100] -translate-y-16 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-transform focus:translate-y-0"
@@ -42,6 +41,6 @@ export default async function SiteLayout({
         {children}
       </main>
       <Footer />
-    </LiteMotionProvider>
+    </>
   );
 }

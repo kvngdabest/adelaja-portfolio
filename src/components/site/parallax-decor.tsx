@@ -3,21 +3,19 @@
 import { useRef } from "react";
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { cn } from "cn";
-import { useLiteMotion } from "@/components/site/lite-motion-provider";
 
 /**
  * Decorative depth layers that drift at different speeds as the section
  * scrolls past. Sits behind content (the parent section must be
  * `relative overflow-hidden` and its content `relative z-10`).
  *
- * Split so useScroll (a live scroll listener + rAF sync for as long as
- * it's mounted) is never instantiated on lite/reduced devices, rather than
- * mounted and its output simply unused.
+ * Split so useScroll (a live scroll listener for as long as it's mounted)
+ * is never instantiated for reduced-motion visitors, rather than mounted
+ * and its output simply unused.
  */
 export function ParallaxDecor({ side = "right" }: { side?: "left" | "right" }) {
   const reduced = useReducedMotion();
-  const lite = useLiteMotion();
-  if (reduced || lite) return <StaticDecor side={side} />;
+  if (reduced) return <StaticDecor side={side} />;
   return <AnimatedDecor side={side} />;
 }
 

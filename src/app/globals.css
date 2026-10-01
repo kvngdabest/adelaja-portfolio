@@ -529,7 +529,6 @@
     filter: blur(90px);
     opacity: var(--aurora-opacity);
     will-change: transform;
-    animation-play-state: var(--aurora-play, running);
   }
   .aurora span:nth-child(1) {
     top: -18%;
